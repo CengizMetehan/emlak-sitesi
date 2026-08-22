@@ -1,0 +1,17 @@
+ilk önce:----
+
+cd C:\Users\oyunp\emlak-sitesi
+
+sonra:----
+
+npm run dev
+
+kodun bulunduğu yer : C:\Users\oyunp\emlak-sitesi ->public basarsan ana ekran fotosunun
+olduğu yer gelir.
+
+
+gite yükleme:--------
+
+git add .
+git commit -m "Site güncellendi"
+git push
