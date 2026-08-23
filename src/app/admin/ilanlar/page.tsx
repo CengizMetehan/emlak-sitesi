@@ -28,19 +28,21 @@ export default async function AdminIlanlarPage() {
    * Override bilgilerini SERVER tarafında
    * uygulayıp Client Component'e hazır veri gönderiyoruz.
    */
-  const adminProperties = properties.map((property) => {
-    const override = getPropertyOverride(property.id);
+  const adminProperties = await Promise.all(
+    properties.map(async (property) => {
+      const override = await getPropertyOverride(property.id);
 
-    return {
-      ...property,
+      return {
+        ...property,
 
-      displayTitle: override?.title ?? property.title,
+        displayTitle: override?.title ?? property.title,
 
-      displayPriceText: override?.price_text ?? property.priceText,
+        displayPriceText: override?.price_text ?? property.priceText,
 
-      displayCoverImage: override?.cover_image ?? property.image,
-    };
-  });
+        displayCoverImage: override?.cover_image ?? property.image,
+      };
+    }),
+  );
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">

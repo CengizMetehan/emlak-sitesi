@@ -37,7 +37,7 @@ export async function updatePropertyPrice(
 
   const priceText = new Intl.NumberFormat("tr-TR").format(price) + " TL";
 
-  upsertPropertyOverride(propertyId, {
+  await upsertPropertyOverride(propertyId, {
     price,
     priceText,
   });
@@ -55,7 +55,7 @@ export async function resetPropertyPrice(propertyId: string) {
     throw new Error("Yetkisiz işlem");
   }
 
-  clearPropertyPriceOverride(propertyId);
+  await clearPropertyPriceOverride(propertyId);
 
   revalidatePath(`/admin/ilanlar/${propertyId}`);
   revalidatePath("/admin/ilanlar");
@@ -73,7 +73,7 @@ export async function updatePropertyCoverImage(
     return;
   }
 
-  upsertPropertyOverride(propertyId, {
+  await upsertPropertyOverride(propertyId, {
     coverImage,
     imageOrder: imageOrder || null,
   });
@@ -113,7 +113,7 @@ export async function updatePropertyImageOrder(
     throw new Error("Geçersiz galeri sırası");
   }
 
-  upsertPropertyOverride(propertyId, {
+  await upsertPropertyOverride(propertyId, {
     imageOrder: JSON.stringify(imageOrder),
   });
 
@@ -147,7 +147,7 @@ export async function updatePropertyTitle(
     throw new Error("Başlık boş bırakılamaz");
   }
 
-  upsertPropertyOverride(propertyId, {
+  await upsertPropertyOverride(propertyId, {
     title,
   });
 
@@ -166,7 +166,7 @@ export async function resetPropertyTitle(propertyId: string) {
     throw new Error("Yetkisiz işlem");
   }
 
-  clearPropertyTitleOverride(propertyId);
+  await clearPropertyTitleOverride(propertyId);
 
   revalidatePath(`/admin/ilanlar/${propertyId}`);
   revalidatePath("/admin/ilanlar");
@@ -186,7 +186,7 @@ export async function updatePropertySahibindenNo(
     return;
   }
 
-  upsertPropertyOverride(propertyId, {
+  await upsertPropertyOverride(propertyId, {
     sahibindenNo,
   });
 

@@ -39,7 +39,7 @@ export default async function AdminIlanDetayPage({ params }: PageProps) {
     notFound();
   }
 
-  const override = getPropertyOverride(id);
+  const override = await getPropertyOverride(id);
   const displayTitle = override?.title ?? property.title;
   const displayPriceText = override?.price_text ?? property.priceText;
   const displayDescription = override?.description ?? property.description;

@@ -1650,69 +1650,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* KULLANICI DENEYİMİ BÖLÜMÜ */}
-      <section className="bg-[#F3F0EA] px-6 py-24 text-zinc-950 md:px-12 lg:px-20">
-        <div className="mx-auto grid max-w-7xl items-center gap-14 rounded-[32px] border border-zinc-200 bg-white p-5 shadow-sm md:p-8 lg:grid-cols-2">
-          <div className="max-w-xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
-              Kullanıcı Dostu Deneyim
-            </p>
-
-            <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
-              Size uygun portföyleri keşfedin.
-            </h2>
-
-            <p className="mt-6 text-base leading-8 text-zinc-600 md:text-lg">
-              İhtiyaçlarınıza uygun portföyleri inceleyin, seçenekleri
-              karşılaştırın ve size en uygun gayrimenkul için doğrudan iletişime
-              geçin.
-            </p>
-
-            <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-4">
-              <div>
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                  ♡
-                </div>
-                <p className="text-sm font-medium">Portföyleri karşılaştırın</p>
-              </div>
-
-              <div>
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                  🔔
-                </div>
-                <p className="text-sm font-medium">
-                  Güncel portföyleri inceleyin
-                </p>
-              </div>
-
-              <div>
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                  📅
-                </div>
-                <p className="text-sm font-medium">
-                  Danışmanla iletişime geçin
-                </p>
-              </div>
-
-              <div>
-                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                  🛡️
-                </div>
-                <p className="text-sm font-medium">Profesyonel destek alın</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="relative">
-            <img
-              src="/uyelik-tesvik.png"
-              alt="Gayrimenkul portföylerini keşfetme ve profesyonel danışmanlık"
-              className="w-full rounded-3xl object-contain"
-            />
-          </div>
-        </div>
-      </section>
-
       <ContactModal
         isOpen={isContactOpen}
         onClose={() => setIsContactOpen(false)}

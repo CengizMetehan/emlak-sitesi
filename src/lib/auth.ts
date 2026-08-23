@@ -1,11 +1,23 @@
 import { betterAuth } from "better-auth";
-import Database from "better-sqlite3";
 import { magicLink } from "better-auth/plugins";
+import pg from "pg";
+
+const { Pool } = pg;
 
 const ADMIN_EMAILS = ["bilalbasol35@gmail.com", "cengizmetehanbasol@gmail.com"];
 
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl:
+    process.env.NODE_ENV === "production"
+      ? {
+          rejectUnauthorized: false,
+        }
+      : undefined,
+});
+
 export const auth = betterAuth({
-  database: new Database("auth.db"),
+  database: pool,
 
   user: {
     additionalFields: {
