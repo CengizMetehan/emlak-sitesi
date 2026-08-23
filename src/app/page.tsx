@@ -1650,84 +1650,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ÜYELİK TEŞVİK BÖLÜMÜ */}
-      {!isSessionPending && !session?.user && (
-        <section className="bg-[#F3F0EA] px-6 py-24 text-zinc-950 md:px-12 lg:px-20">
-          <div className="mx-auto grid max-w-7xl items-center gap-14 rounded-[32px] border border-zinc-200 bg-white p-5 shadow-sm md:p-8 lg:grid-cols-2">
-            <div className="max-w-xl">
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
-                Kullanıcı Dostu Deneyim
-              </p>
+      {/* KULLANICI DENEYİMİ BÖLÜMÜ */}
+      <section className="bg-[#F3F0EA] px-6 py-24 text-zinc-950 md:px-12 lg:px-20">
+        <div className="mx-auto grid max-w-7xl items-center gap-14 rounded-[32px] border border-zinc-200 bg-white p-5 shadow-sm md:p-8 lg:grid-cols-2">
+          <div className="max-w-xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
+              Kullanıcı Dostu Deneyim
+            </p>
 
-              <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
-                Size özel portföyleri keşfedin.
-              </h2>
+            <h2 className="mt-4 text-4xl font-semibold tracking-tight md:text-6xl">
+              Size uygun portföyleri keşfedin.
+            </h2>
 
-              <p className="mt-6 text-base leading-8 text-zinc-600 md:text-lg">
-                Ücretsiz hesabınızı oluşturun, favori portföylerinizi kaydedin,
-                yeni ilanlardan ilk siz haberdar olun.
-              </p>
+            <p className="mt-6 text-base leading-8 text-zinc-600 md:text-lg">
+              İhtiyaçlarınıza uygun portföyleri inceleyin, seçenekleri
+              karşılaştırın ve size en uygun gayrimenkul için doğrudan iletişime
+              geçin.
+            </p>
 
-              <div className="mt-9 flex flex-wrap gap-4">
-                <a
-                  href="/kayit"
-                  className="rounded-xl bg-zinc-950 px-7 py-4 font-semibold text-white transition hover:bg-zinc-800"
-                >
-                  Ücretsiz Hesap Oluştur
-                </a>
-
-                <button
-                  type="button"
-                  onClick={() => setIsLoginOpen(true)}
-                  className="rounded-xl border border-zinc-300 bg-white px-7 py-4 font-semibold text-zinc-950 transition hover:border-zinc-500"
-                >
-                  Giriş Yap
-                </button>
+            <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-4">
+              <div>
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
+                  ♡
+                </div>
+                <p className="text-sm font-medium">Portföyleri karşılaştırın</p>
               </div>
 
-              <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-4">
-                <div>
-                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                    ♡
-                  </div>
-                  <p className="text-sm font-medium">Favorileri kaydedin</p>
+              <div>
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
+                  🔔
                 </div>
-
-                <div>
-                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                    🔔
-                  </div>
-                  <p className="text-sm font-medium">
-                    Yeni ilanlardan haberdar olun
-                  </p>
-                </div>
-
-                <div>
-                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                    📅
-                  </div>
-                  <p className="text-sm font-medium">Randevu oluşturun</p>
-                </div>
-
-                <div>
-                  <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
-                    🛡️
-                  </div>
-                  <p className="text-sm font-medium">Güvenli işlem yapın</p>
-                </div>
+                <p className="text-sm font-medium">
+                  Güncel portföyleri inceleyin
+                </p>
               </div>
-            </div>
 
-            <div className="relative">
-              <img
-                src="/uyelik-tesvik.png"
-                alt="Üyelik avantajları ve kişiselleştirilmiş gayrimenkul önerileri"
-                className="w-full rounded-3xl object-contain"
-              />
+              <div>
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
+                  📅
+                </div>
+                <p className="text-sm font-medium">
+                  Danışmanla iletişime geçin
+                </p>
+              </div>
+
+              <div>
+                <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-xl">
+                  🛡️
+                </div>
+                <p className="text-sm font-medium">Profesyonel destek alın</p>
+              </div>
             </div>
           </div>
-        </section>
-      )}
+
+          <div className="relative">
+            <img
+              src="/uyelik-tesvik.png"
+              alt="Gayrimenkul portföylerini keşfetme ve profesyonel danışmanlık"
+              className="w-full rounded-3xl object-contain"
+            />
+          </div>
+        </div>
+      </section>
 
       <ContactModal
         isOpen={isContactOpen}
