@@ -19,6 +19,10 @@ const pool = new Pool({
 export const auth = betterAuth({
   database: pool,
 
+  baseURL: process.env.BETTER_AUTH_URL || "https://www.bilalbasol.com",
+
+  trustedOrigins: ["https://bilalbasol.com", "https://www.bilalbasol.com"],
+
   user: {
     additionalFields: {
       role: {
