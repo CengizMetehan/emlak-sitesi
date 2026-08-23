@@ -7,11 +7,13 @@ type PropertyGalleryProps = {
   images: string[];
   title: string;
   initialImage?: string;
+  sahibindenUrl?: string;
 };
 export default function PropertyGallery({
   images,
   title,
   initialImage,
+  sahibindenUrl,
 }: PropertyGalleryProps) {
   const initialIndex = initialImage ? images.indexOf(initialImage) : 0;
 
@@ -22,8 +24,21 @@ export default function PropertyGallery({
 
   if (images.length === 0) {
     return (
-      <div className="flex h-[360px] items-center justify-center rounded-2xl border border-zinc-200 bg-white text-zinc-500 shadow-sm">
-        Bu portföy için görsel bulunamadı.
+      <div className="flex h-[360px] flex-col items-center justify-center rounded-2xl border border-zinc-200 bg-white px-6 text-center shadow-sm">
+        <p className="text-base text-zinc-500">
+          Bu portföy için görsel bulunamadı.
+        </p>
+
+        {sahibindenUrl && (
+          <a
+            href={sahibindenUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 text-base  text-blue-600 underline decoration-blue-300 underline-offset-4 transition hover:text-blue-700 hover:decoration-blue-700"
+          >
+            Sahibinden&apos;de görüntülemek için buraya tıklayın
+          </a>
+        )}
       </div>
     );
   }

@@ -107,20 +107,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           <div className="my-5 flex items-center gap-4">
             <div className="h-px flex-1 bg-zinc-200" />
 
-            <span className="text-xs font-medium uppercase tracking-wider text-zinc-400">
-              veya
-            </span>
-
             <div className="h-px flex-1 bg-zinc-200" />
           </div>
-
-          {/* RANDEVU */}
-          <a
-            href="/randevu"
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3.5 font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md"
-          >
-            Randevu Al
-          </a>
 
           {/* ALT BİLGİ */}
           <div className="mt-6 border-t border-zinc-100 pt-5 text-center">

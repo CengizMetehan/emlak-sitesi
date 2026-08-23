@@ -219,6 +219,7 @@ export default async function PropertyDetailPage({
                 images={displayImages}
                 title={displayTitle}
                 initialImage={displayCoverImage}
+                sahibindenUrl={sahibindenUrl}
               />
             </div>
           </div>

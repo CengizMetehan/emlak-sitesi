@@ -150,7 +150,7 @@ export default function HikayemSlider() {
             <div className="lg:sticky lg:top-8">
               <div className="overflow-hidden rounded-[28px] border border-zinc-200 bg-zinc-100 shadow-sm">
                 <img
-                  src="/bilal-basol.jpg"
+                  src="/bilal-basol.png"
                   alt="Bilal Başol Gayrimenkul Danışmanı"
                   className="aspect-[4/5] h-full w-full object-cover"
                 />
