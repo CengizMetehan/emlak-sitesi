@@ -189,6 +189,7 @@ export default function Home() {
 
   const [selectedCategory, setSelectedCategory] = useState("Satılık");
   const [selectedLocation, setSelectedLocation] = useState("Eskişehir");
+  const [isSocialMenuOpen, setIsSocialMenuOpen] = useState(false);
   const [minPriceInput, setMinPriceInput] = useState("");
   const [maxPriceInput, setMaxPriceInput] = useState("");
   const [selectedPropertyType, setSelectedPropertyType] = useState("Tümü");
@@ -242,7 +243,7 @@ export default function Home() {
   const [slideDirection, setSlideDirection] = useState<"left" | "right">(
     "right",
   );
-  const itemsPerPage = 6;
+  const itemsPerPage = 10;
 
   const handleHeroSearch = () => {
     const query = heroSearch.trim().toLocaleLowerCase("tr-TR");
@@ -406,14 +407,11 @@ export default function Home() {
     }, 100);
   };
 
-  // TOPLAM SAYFA SAYISI
-  const totalPages = Math.ceil(searchResults.length / itemsPerPage);
+  // ARAMA YAPILMADIYSA TÜM PORTFÖYLERİ GÖSTER
+  const displayedProperties = hasSearched ? searchResults : properties;
 
-  // O ANKİ SAYFANIN BAŞLANGIÇ İNDEKSİ
-  const startIndex = (currentPage - 1) * itemsPerPage;
-
-  // SADECE O SAYFADA GÖSTERİLECEK 6 İLAN
-  const sortedSearchResults = [...searchResults].sort((a, b) => {
+  // SIRALAMA
+  const sortedSearchResults = [...displayedProperties].sort((a, b) => {
     if (sortOption === "price-asc") {
       const priceA =
         Number(getDisplayPrice(a.id, a.priceText).replace(/[^\d]/g, "")) || 0;
@@ -437,9 +435,12 @@ export default function Home() {
     return 0;
   });
 
+  // SAYFALAMA
+  const totalPages = Math.ceil(sortedSearchResults.length / itemsPerPage);
+
   const currentResults = sortedSearchResults.slice(
-    (currentPage - 1) * 6,
-    currentPage * 6,
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage,
   );
 
   //const youtubeUrl = "https://youtu.be/1KesPNiOmvA?si=-xUmdDCqZLdwrb6q";
@@ -519,46 +520,67 @@ export default function Home() {
           </div>
         </div>
       </header>
+      {/* SAĞ ALT SOSYAL MEDYA MENÜSÜ */}
+      {isSocialMenuOpen && (
+        <button
+          type="button"
+          aria-label="Sosyal medya menüsünü kapat"
+          onClick={() => setIsSocialMenuOpen(false)}
+          className="fixed inset-0 z-[55] cursor-default bg-transparent"
+        />
+      )}
 
-      {/* HERO + SOL SOSYAL PANEL */}
-      <section className="relative min-h-[602px] overflow-hidden bg-[#F3F0EA]">
-        {/* SOL PANEL */}
-        <aside className="fixed right-4 top-[52%] z-40 hidden w-[72px] -translate-y-1/2 rounded-[24px] border border-zinc-200 bg-white/95 px-2 py-3 shadow-xl backdrop-blur-md lg:flex lg:flex-col lg:items-center">
-          <a
-            href="/"
-            className="mb-2 flex w-[64px] items-center justify-center rounded-2xl bg-white px-2 py-1"
-          >
-            <img
-              src="/bilal-basol-imza.png"
-              alt="Bilal Başol"
-              className="h-[72px] w-auto object-contain"
-            />
-          </a>
-
-          {/* AYIRICI */}
-          <div className="mb-3 h-px w-14 bg-zinc-200" />
-
-          {/* SOSYAL MEDYA */}
-          <div className="flex flex-col items-center gap-2">
+      <div className="fixed bottom-3 right-3 z-[60] flex flex-col items-center">
+        {/* AÇILAN SOSYAL MEDYA ŞERİDİ */}
+        <div
+          className={`mb-2 overflow-hidden rounded-[22px] border border-zinc-200 bg-white/95 shadow-xl backdrop-blur-md transition-all duration-300 ${
+            isSocialMenuOpen
+              ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
+              : "pointer-events-none translate-y-3 scale-95 opacity-0"
+          }`}
+        >
+          <div className="flex flex-col items-center divide-y divide-zinc-100">
             {socialLinks.map((social) => (
               <a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex w-[68px] flex-col items-center justify-center rounded-xl px-2 py-2 text-zinc-500 transition duration-200 hover:bg-zinc-100 hover:text-zinc-950"
+                onClick={() => setIsSocialMenuOpen(false)}
+                aria-label={social.name}
+                title={social.name}
+                className="group flex h-12 w-12 items-center justify-center text-zinc-500 transition hover:bg-zinc-50 hover:text-blue-600"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-zinc-50 transition duration-200 group-hover:scale-110 group-hover:bg-white">
+                <div className="flex h-8 w-8 items-center justify-center transition duration-200 group-hover:scale-110">
                   {social.icon}
                 </div>
-
-                <span className="mt-1.5 text-center text-[11px] font-medium">
-                  {social.name}
-                </span>
               </a>
             ))}
           </div>
-        </aside>
+        </div>
+
+        {/* ANA İMZA BUTONU */}
+        <button
+          type="button"
+          onClick={() => setIsSocialMenuOpen((prev) => !prev)}
+          aria-label={
+            isSocialMenuOpen
+              ? "Sosyal medya menüsünü kapat"
+              : "Sosyal medya bağlantılarını aç"
+          }
+          className="flex h-[58px] w-[58px] items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.16)] transition duration-300 hover:scale-105 hover:shadow-[0_10px_28px_rgba(0,0,0,0.20)]"
+        >
+          <img
+            src="/bilal-basol-imza.png"
+            alt="Bilal Başol"
+            className="h-[48px] w-[48px] object-contain"
+          />
+        </button>
+      </div>
+
+      {/* HERO + SOL SOSYAL PANEL */}
+      <section className="relative min-h-[602px] overflow-hidden bg-[#F3F0EA]">
+        {/* SOL PANEL */}
 
         {/* HERO GÖRSELİ */}
         <div className="relative flex-1 overflow-hidden">
@@ -737,46 +759,29 @@ export default function Home() {
         </div>
       </section>
 
-      {/* PORTFÖY ARAMA DETAYLI */}
+      {/* PORTFÖYLER + DETAYLI ARAMA */}
       <section
         id="portfoyler"
         className="bg-[#F3F0EA] px-6 py-6 text-zinc-950 md:px-12 lg:px-20"
       >
-        <div className="mx-auto max-w-7xl rounded-[32px] border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
-          {/* BAŞLIK */}
-          <div className="mb-10 ">
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600 ">
-              Detaylı Portföy Arama
-            </p>
+        <div className="mx-auto max-w-[1500px] rounded-[32px] border border-zinc-200 bg-white p-6 shadow-sm md:p-8">
+          {/* KOMPAKT BAŞLIK */}
+          <div className="mb-7 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
+                Detaylı Portföy Arama
+              </p>
 
-            <div className="grid items-center gap-8 lg:grid-cols-[1.35fr_0.65fr]">
-              {/* SOL - BAŞLIK VE AÇIKLAMA */}
-              <div>
-                <h2 className="mt-3 max-w-4xl text-4xl font-semibold tracking-tight md:text-6xl">
-                  Bütçenize ve ihtiyaçlarınıza uygun gayrimenkulü bulun.
-                </h2>
-
-                <p className="mt-5 max-w-2xl text-base leading-7 text-zinc-600 md:text-lg">
-                  Konum, gayrimenkul türü ve bütçenizi belirleyin. Size uygun
-                  portföyleri birlikte filtreleyelim.
-                </p>
-              </div>
-
-              {/* SAĞ - PORTFÖY ARAMA GÖRSELİ */}
-              <div className="hidden items-center justify-center lg:flex">
-                <img
-                  src="/portfoy-arama.png"
-                  alt="Gayrimenkul portföy arama"
-                  className="h-auto w-full max-w-[300px] object-contain"
-                />
-              </div>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
+                Size uygun gayrimenkulü bulun.
+              </h2>
             </div>
           </div>
 
-          {/* ANA ARAMA PANELİ */}
-          <div className="rounded-[32px] border border-zinc-200 bg-white p-5 shadow-sm md:p-8">
+          {/* KOMPAKT ARAMA PANELİ */}
+          <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4">
             {/* KATEGORİLER */}
-            <div className="mt-7 flex flex-wrap gap-1 py-2">
+            <div className="mb-4 flex flex-wrap gap-2">
               {["Satılık", "Kiralık", "Ticari", "Arsa"].map((item) => {
                 const isSelected = selectedCategory === item;
 
@@ -785,35 +790,30 @@ export default function Home() {
                     key={item}
                     type="button"
                     onClick={() => setSelectedCategory(item)}
-                    className={`relative rounded-full px-7 py-3 text-sm font-semibold transition duration-300 ${
+                    className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
                       isSelected
-                        ? "bg-blue-600 text-white shadow-md shadow-blue-600/25"
+                        ? "bg-blue-600 text-white shadow-sm"
                         : "border border-zinc-200 bg-white text-zinc-700 hover:border-blue-300 hover:text-blue-600"
                     }`}
                   >
-                    {/* SEÇİLİ BUTON DALGALANMA EFEKTİ */}
-                    {isSelected && (
-                      <span className="pointer-events-none absolute -inset-0.5 animate-[ping_0.8s_ease-out_0] rounded-full border-2 border-blue-500/60" />
-                    )}
-
-                    <span className="relative z-10">{item}</span>
+                    {item}
                   </button>
                 );
               })}
             </div>
 
             {/* FİLTRELER */}
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1fr_auto]">
               {/* KONUM */}
-              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
-                <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-zinc-500">
+              <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
                   Konum
                 </label>
 
                 <select
                   value={selectedLocation}
                   onChange={(e) => setSelectedLocation(e.target.value)}
-                  className="w-full bg-transparent text-lg font-medium text-zinc-950 outline-none"
+                  className="mt-1 w-full bg-transparent text-sm font-medium text-zinc-950 outline-none"
                 >
                   <option>Eskişehir</option>
                   <option>Tepebaşı</option>
@@ -822,15 +822,15 @@ export default function Home() {
               </div>
 
               {/* GAYRİMENKUL TİPİ */}
-              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
-                <label className="mb-2 block text-xs font-medium uppercase tracking-wider text-zinc-500">
+              <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
                   Gayrimenkul Tipi
                 </label>
 
                 <select
                   value={selectedPropertyType}
                   onChange={(e) => setSelectedPropertyType(e.target.value)}
-                  className="w-full bg-transparent text-lg font-medium text-zinc-950 outline-none"
+                  className="mt-1 w-full bg-transparent text-sm font-medium text-zinc-950 outline-none"
                 >
                   <option>Tümü</option>
                   <option>Daire</option>
@@ -840,12 +840,13 @@ export default function Home() {
                 </select>
               </div>
 
-              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 px-6 py-5">
-                <label className="block text-xs font-medium uppercase tracking-wide text-zinc-500">
+              {/* MİNİMUM FİYAT */}
+              <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
                   Minimum Fiyat
                 </label>
 
-                <div className="mt-2 flex items-center">
+                <div className="mt-1 flex items-center">
                   <input
                     type="text"
                     inputMode="numeric"
@@ -861,22 +862,21 @@ export default function Home() {
 
                       setMinPrice(onlyNumbers);
                     }}
-                    placeholder="Örn. 2.500.000"
-                    className="w-full bg-transparent text-xl font-medium text-zinc-950 outline-none placeholder:text-zinc-400"
+                    placeholder="2.500.000"
+                    className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-zinc-400"
                   />
 
-                  <span className="ml-2 shrink-0 text-sm font-medium text-zinc-500">
-                    TL
-                  </span>
+                  <span className="ml-2 text-xs text-zinc-400">TL</span>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 px-6 py-5">
-                <label className="block text-xs font-medium uppercase tracking-wide text-zinc-500">
+              {/* MAKSİMUM FİYAT */}
+              <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
                   Maksimum Fiyat
                 </label>
 
-                <div className="mt-2 flex items-center">
+                <div className="mt-1 flex items-center">
                   <input
                     type="text"
                     inputMode="numeric"
@@ -892,413 +892,164 @@ export default function Home() {
 
                       setMaxPrice(onlyNumbers);
                     }}
-                    placeholder="Örn. 10.000.000"
-                    className="w-full bg-transparent text-xl font-medium text-zinc-950 outline-none placeholder:text-zinc-400"
+                    placeholder="10.000.000"
+                    className="w-full bg-transparent text-sm font-medium outline-none placeholder:text-zinc-400"
                   />
 
-                  <span className="ml-2 shrink-0 text-sm font-medium text-zinc-500">
-                    TL
-                  </span>
+                  <span className="ml-2 text-xs text-zinc-400">TL</span>
                 </div>
               </div>
 
-              {/* ARAMA BUTONU */}
+              {/* ARA */}
               <button
                 type="button"
                 onClick={handleSearch}
-                className="flex min-h-[96px] items-center justify-center rounded-2xl bg-blue-600 px-7 text-lg font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-lg"
+                className="rounded-xl bg-blue-600 px-7 py-4 text-sm font-semibold text-white transition hover:bg-blue-700"
               >
                 Portföy Ara
               </button>
             </div>
-            {/* HIZLI BÜTÇE SEÇİMİ */}
-            <div className="mt-7 border-t border-zinc-200 pt-7">
-              <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-center">
-                <div>
-                  <p className="font-semibold text-zinc-950">
-                    Bütçenizi hızlıca belirleyin
-                  </p>
-
-                  <p className="mt-1 text-sm text-zinc-500">
-                    Sık kullanılan fiyat aralıklarından birini seçebilirsiniz.
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-2">
-                  {[
-                    {
-                      label: "0 - 5 Milyon",
-                      min: "",
-                      max: "5000000",
-                    },
-                    {
-                      label: "5 - 10 Milyon",
-                      min: "5000000",
-                      max: "10000000",
-                    },
-                    {
-                      label: "10 - 20 Milyon",
-                      min: "10000000",
-                      max: "20000000",
-                    },
-                    {
-                      label: "20 Milyon +",
-                      min: "20000000",
-                      max: "",
-                    },
-                  ].map((budget) => {
-                    const isActive =
-                      minPrice === budget.min && maxPrice === budget.max;
-
-                    return (
-                      <button
-                        key={budget.label}
-                        type="button"
-                        onClick={() => {
-                          setMinPrice(budget.min);
-                          setMaxPrice(budget.max);
-                        }}
-                        className={`rounded-full border px-5 py-2.5 text-sm font-medium transition ${
-                          isActive
-                            ? "border-blue-600 bg-blue-600 text-white shadow-sm"
-                            : "border-zinc-200 bg-white text-zinc-700 hover:border-blue-300 hover:bg-blue-50 hover:text-blue-700"
-                        }`}
-                      >
-                        {budget.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
           </div>
 
-          {/* ARAMA SONUÇLARI */}
-          {hasSearched && (
-            <div id="arama-sonuclari" className="mt-8 scroll-mt-24">
-              {/* SONUÇ SAYISI + SIRALAMA */}
-              <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                  <p className="text-sm font-medium text-blue-600">
-                    Arama Sonuçları
-                  </p>
+          {/* TÜM PORTFÖYLER */}
+          <div id="arama-sonuclari" className="mt-10 scroll-mt-24">
+            <div className="mb-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
+                  Portföyler
+                </p>
 
-                  <h3 className="mt-1 text-2xl font-semibold text-zinc-950">
-                    {searchResults.length} portföy bulundu.
-                  </h3>
-                </div>
-
-                {searchResults.length > 1 && (
-                  <div className="flex items-center gap-3">
-                    <label
-                      htmlFor="property-sort"
-                      className="text-sm font-medium text-zinc-900"
-                    >
-                      Sırala:
-                    </label>
-
-                    <select
-                      id="property-sort"
-                      value={sortOption}
-                      onChange={(e) => setSortOption(e.target.value)}
-                      className="rounded-xl border border-zinc-200 bg-white px-4 py-3 text-sm font-medium text-zinc-800 outline-none transition hover:border-zinc-300 focus:border-blue-500"
-                    >
-                      <option value="default">Önerilen</option>
-                      <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
-                      <option value="price-desc">
-                        Fiyat: Yüksekten Düşüğe
-                      </option>
-                    </select>
-                  </div>
-                )}
+                <h3 className="mt-1 text-2xl font-semibold">
+                  {hasSearched
+                    ? `${displayedProperties.length} portföy bulundu`
+                    : `Tüm portföyler (${properties.length})`}
+                </h3>
               </div>
 
-              {/* SONUÇ YOKSA */}
-              {searchResults.length === 0 ? (
-                <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-8 text-center">
-                  <p className="text-lg font-semibold text-zinc-950">
-                    Aramanıza uygun portföy bulunamadı.
-                  </p>
+              {displayedProperties.length > 1 && (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm text-zinc-500">Sırala</span>
 
-                  <p className="mt-2 text-sm text-zinc-500">
-                    Fiyat aralığını veya diğer filtreleri değiştirerek tekrar
-                    deneyebilirsiniz.
-                  </p>
+                  <select
+                    value={sortOption}
+                    onChange={(e) => {
+                      setSortOption(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="rounded-xl border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium outline-none"
+                  >
+                    <option value="default">Önerilen</option>
+                    <option value="price-asc">Fiyat: Düşükten Yükseğe</option>
+                    <option value="price-desc">Fiyat: Yüksekten Düşüğe</option>
+                  </select>
                 </div>
-              ) : (
-                <>
-                  {/* İLAN KARTLARI */}
-                  <div className="relative min-h-[610px] overflow-hidden">
-                    <div
-                      key={currentPage}
-                      className={`grid gap-4 md:grid-cols-2 xl:grid-cols-3 ${
-                        slideDirection === "right"
-                          ? "animate-[slideInRight_0.45s_ease-out]"
-                          : "animate-[slideInLeft_0.45s_ease-out]"
-                      }`}
-                    >
-                      {currentResults.map((property) => (
-                        <article
-                          key={property.id}
-                          className="group flex h-[295px] overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
-                        >
-                          {/* SOL GÖRSEL */}
-                          <div className="relative w-[42%] shrink-0 overflow-hidden">
-                            {getDisplayCoverImage(
-                              property.id,
-                              property.image,
-                            ) ? (
-                              <img
-                                src={getDisplayCoverImage(
-                                  property.id,
-                                  property.image,
-                                )}
-                                alt={getDisplayTitle(
-                                  property.id,
-                                  property.title,
-                                )}
-                                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                              />
-                            ) : (
-                              <div className="flex h-full w-full flex-col items-center justify-center bg-zinc-100 px-4 text-center">
-                                <svg
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  strokeWidth="1.5"
-                                  className="h-9 w-9 text-zinc-400"
-                                >
-                                  <rect
-                                    x="3"
-                                    y="4"
-                                    width="18"
-                                    height="16"
-                                    rx="2"
-                                  />
-                                  <circle cx="8.5" cy="9" r="1.5" />
-                                  <path d="m21 15-5-5L5 20" />
-                                </svg>
-
-                                <p className="mt-2 text-xs font-medium text-zinc-500">
-                                  Görsel yakında eklenecek
-                                </p>
-                              </div>
-                            )}
-
-                            {/* SATILIK / KİRALIK */}
-                            <div className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1.5 text-[11px] font-semibold text-zinc-950 shadow-sm">
-                              {property.category}
-                            </div>
-                          </div>
-
-                          {/* SAĞ BİLGİLER */}
-                          <div className="flex min-w-0 flex-1 flex-col p-4">
-                            {/* KONUM */}
-                            <p className="truncate text-[11px] font-medium text-blue-600">
-                              {property.neighborhood} • {property.district}
-                            </p>
-
-                            {/* BAŞLIK */}
-                            <h3 className="mt-2 line-clamp-2 text-[16px] font-semibold leading-5 text-zinc-950">
-                              {getDisplayTitle(property.id, property.title)}
-                            </h3>
-
-                            {/* ÖZELLİKLER */}
-                            <div className="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-[12px] text-zinc-500">
-                              {property.rooms && <span>{property.rooms}</span>}
-
-                              {property.rooms && property.grossArea && (
-                                <span>•</span>
-                              )}
-
-                              {property.grossArea && (
-                                <span>{property.grossArea} m²</span>
-                              )}
-
-                              <span>•</span>
-
-                              <span>{property.propertyType}</span>
-                            </div>
-
-                            {/* ALT KISIM */}
-                            <div className="mt-auto">
-                              <p className="text-[17px] font-bold text-zinc-950">
-                                {getDisplayPrice(
-                                  property.id,
-                                  property.priceText,
-                                )}
-                              </p>
-
-                              <a
-                                href={`/portfoy/${property.id}`}
-                                className="mt-3 block w-full rounded-lg bg-zinc-950 px-3 py-2.5 text-center text-[13px] font-semibold text-white transition hover:bg-blue-600"
-                              >
-                                Portföyü İncele
-                              </a>
-                            </div>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                  </div>
-                  {/* SAYFALAMA */}
-                  {totalPages > 1 && (
-                    <div className="mt-10 flex items-center justify-center gap-4">
-                      {/* SOL OK */}
-                      <button
-                        type="button"
-                        onClick={goToPreviousPage}
-                        disabled={currentPage === 1}
-                        className={`flex h-12 w-12 items-center justify-center rounded-full border text-xl transition ${
-                          currentPage === 1
-                            ? "cursor-not-allowed border-zinc-200 text-zinc-300"
-                            : "border-zinc-300 bg-white text-zinc-700 shadow-sm hover:border-blue-600 hover:text-blue-600 hover:shadow-md"
-                        }`}
-                      >
-                        ←
-                      </button>
-
-                      {/* SAYFA NUMARALARI */}
-                      <div className="flex items-center gap-2">
-                        {Array.from({ length: totalPages }, (_, index) => {
-                          const pageNumber = index + 1;
-
-                          return (
-                            <button
-                              key={pageNumber}
-                              type="button"
-                              onClick={() => goToPage(pageNumber)}
-                              className={`flex h-10 min-w-10 items-center justify-center rounded-full px-3 text-sm font-semibold transition ${
-                                currentPage === pageNumber
-                                  ? "bg-blue-600 text-white shadow-md"
-                                  : "bg-zinc-100 text-zinc-600 hover:bg-blue-50 hover:text-blue-600"
-                              }`}
-                            >
-                              {pageNumber}
-                            </button>
-                          );
-                        })}
-                      </div>
-
-                      {/* SAĞ OK */}
-                      <button
-                        type="button"
-                        onClick={goToNextPage}
-                        disabled={currentPage === totalPages}
-                        className={`flex h-12 w-12 items-center justify-center rounded-full border text-xl transition ${
-                          currentPage === totalPages
-                            ? "cursor-not-allowed border-zinc-200 text-zinc-300"
-                            : "border-zinc-300 bg-white text-zinc-700 shadow-sm hover:border-blue-600 hover:text-blue-600 hover:shadow-md"
-                        }`}
-                      >
-                        →
-                      </button>
-                    </div>
-                  )}
-                </>
               )}
             </div>
-          )}
-        </div>
-      </section>
 
-      {/* ÖNE ÇIKAN PORTFÖYLER */}
-      <section className="bg-[#F3F0EA] px-6 py-6 text-zinc-950 md:px-12 lg:px-20">
-        <div className="mx-auto max-w-7xl rounded-[32px] border border-zinc-200 bg-white p-6 shadow-sm md:p-10">
-          <div className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
-                Öne Çıkan Portföyler
-              </p>
-
-              <h2 className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl">
-                Seçili gayrimenkuller
-              </h2>
-            </div>
-          </div>
-
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {properties
-              .filter((property) => property.featured)
-              .map((property) => (
-                <article
-                  key={property.id}
-                  className="group flex h-full flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <a href={`/portfoy/${property.id}`} className="block">
-                    <div className="relative h-72 overflow-hidden">
-                      {getDisplayCoverImage(property.id, property.image) ? (
-                        <img
-                          src={getDisplayCoverImage(
-                            property.id,
-                            property.image,
+            {propertiesLoading ? (
+              <div className="py-16 text-center text-zinc-500">
+                Portföyler yükleniyor...
+              </div>
+            ) : currentResults.length === 0 ? (
+              <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-10 text-center">
+                Aramanıza uygun portföy bulunamadı.
+              </div>
+            ) : (
+              <>
+                {/* 10 PORTFÖY */}
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                  {currentResults.map((property) => (
+                    <article
+                      key={property.id}
+                      className="group flex min-h-[360px] flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                    >
+                      <a href={`/portfoy/${property.id}`}>
+                        <div className="relative h-44 overflow-hidden">
+                          {getDisplayCoverImage(property.id, property.image) ? (
+                            <img
+                              src={getDisplayCoverImage(
+                                property.id,
+                                property.image,
+                              )}
+                              alt={getDisplayTitle(property.id, property.title)}
+                              className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="flex h-full items-center justify-center bg-zinc-100 text-xs text-zinc-400">
+                              Görsel yakında
+                            </div>
                           )}
-                          alt={getDisplayTitle(property.id, property.title)}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        <div className="flex h-full w-full flex-col items-center justify-center bg-zinc-100 px-4 text-center">
-                          <svg
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            className="h-10 w-10 text-zinc-400"
-                          >
-                            <rect x="3" y="4" width="18" height="16" rx="2" />
-                            <circle cx="8.5" cy="9" r="1.5" />
-                            <path d="m21 15-5-5L5 20" />
-                          </svg>
 
-                          <p className="mt-2 text-xs font-medium text-zinc-500">
-                            Görsel yakında eklenecek
-                          </p>
+                          <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold shadow-sm">
+                            {property.category}
+                          </span>
                         </div>
-                      )}
-
-                      <div className="absolute left-4 top-4 rounded-full bg-white px-4 py-2 text-xs font-semibold text-black shadow-sm">
-                        {property.category}
-                      </div>
-                    </div>
-                  </a>
-
-                  <div className="flex flex-1 flex-col p-6">
-                    <p className="text-sm text-zinc-500">
-                      {property.neighborhood} • {property.district} •{" "}
-                      {property.city}
-                    </p>
-
-                    <h3 className="mt-2 text-xl font-semibold leading-snug">
-                      {getDisplayTitle(property.id, property.title)}
-                    </h3>
-
-                    <div className="mt-5 flex flex-wrap gap-3 text-sm text-zinc-600">
-                      {property.rooms && <span>{property.rooms}</span>}
-
-                      {property.rooms && <span>•</span>}
-
-                      <span>{property.propertyType}</span>
-
-                      <span>•</span>
-
-                      <span>{property.city}</span>
-                    </div>
-
-                    <div className="mt-auto flex items-center justify-between border-t border-zinc-200 pt-5">
-                      <span className="text-lg font-semibold">
-                        {getDisplayPrice(property.id, property.priceText)}
-                      </span>
-
-                      <a
-                        href={`/portfoy/${property.id}`}
-                        className="rounded-full bg-zinc-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-zinc-800"
-                      >
-                        İncele
                       </a>
-                    </div>
+
+                      <div className="flex flex-1 flex-col p-4">
+                        <p className="truncate text-[11px] font-medium text-blue-600">
+                          {property.neighborhood} • {property.district}
+                        </p>
+
+                        <h3 className="mt-2 line-clamp-2 text-sm font-semibold leading-5">
+                          {getDisplayTitle(property.id, property.title)}
+                        </h3>
+
+                        <div className="mt-3 flex flex-wrap gap-1.5 text-[11px] text-zinc-500">
+                          {property.rooms && <span>{property.rooms}</span>}
+                          {property.rooms && <span>•</span>}
+                          {property.grossArea && (
+                            <span>{property.grossArea} m²</span>
+                          )}
+                          {property.grossArea && <span>•</span>}
+                          <span>{property.propertyType}</span>
+                        </div>
+
+                        <div className="mt-auto border-t border-zinc-100 pt-4">
+                          <p className="text-base font-bold">
+                            {getDisplayPrice(property.id, property.priceText)}
+                          </p>
+
+                          <a
+                            href={`/portfoy/${property.id}`}
+                            className="mt-3 block rounded-lg bg-zinc-950 px-3 py-2.5 text-center text-xs font-semibold text-white transition hover:bg-blue-600"
+                          >
+                            Portföyü İncele
+                          </a>
+                        </div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
+
+                {/* SAYFALAMA */}
+                {totalPages > 1 && (
+                  <div className="mt-8 flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={goToPreviousPage}
+                      disabled={currentPage === 1}
+                      className="rounded-full border border-zinc-200 px-4 py-2 text-sm disabled:opacity-30"
+                    >
+                      ←
+                    </button>
+
+                    <span className="text-sm font-medium text-zinc-600">
+                      {currentPage} / {totalPages}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={goToNextPage}
+                      disabled={currentPage === totalPages}
+                      className="rounded-full border border-zinc-200 px-4 py-2 text-sm disabled:opacity-30"
+                    >
+                      →
+                    </button>
                   </div>
-                </article>
-              ))}
+                )}
+              </>
+            )}
           </div>
         </div>
       </section>

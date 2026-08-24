@@ -1,8 +1,9 @@
 import PropertyGallery from "../../../components/PropertyGallery";
-import { getPropertyById } from "@/lib/properties-db";
+import { getProperties, getPropertyById } from "@/lib/properties-db";
 import { getPropertyOverride } from "@/lib/property-overrides";
 import { notFound } from "next/navigation";
 import ContactModalButton from "@/components/ContactModalButton";
+import Footer from "@/components/Footer";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,12 @@ export default async function PropertyDetailPage({
   if (!property) {
     notFound();
   }
+
+  const allProperties = await getProperties();
+
+  const featuredProperties = allProperties
+    .filter((item) => item.featured && item.id !== property.id)
+    .slice(0, 3);
 
   const override = await getPropertyOverride(id);
 
@@ -151,7 +158,7 @@ export default async function PropertyDetailPage({
     : "";
 
   return (
-    <main className="min-h-screen bg-[#f8f9fb] text-zinc-950">
+    <main className="min-h-screen bg-[#F3F0EA] text-zinc-950">
       {/* HEADER */}
       <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/95 backdrop-blur-xl">
         <div className="mx-auto flex h-[86px] max-w-[1450px] items-center justify-between px-6 md:px-10">
@@ -166,8 +173,8 @@ export default async function PropertyDetailPage({
           </a>
 
           <nav className="hidden items-center gap-8 text-sm font-medium lg:flex">
-            <a href="/" className="transition hover:text-blue-600">
-              Ana Sayfa
+            <a href="/#portfoyler" className="transition hover:text-blue-600">
+              Portföy Ara
             </a>
 
             <a href="/hakkimda" className="transition hover:text-blue-600">
@@ -180,10 +187,10 @@ export default async function PropertyDetailPage({
           </nav>
 
           <a
-            href="/#portfoyler"
+            href="/"
             className="rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
           >
-            Portföy Ara
+            Ana Sayfa
           </a>
         </div>
       </header>
@@ -426,7 +433,7 @@ export default async function PropertyDetailPage({
             <section className="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm md:p-7">
               <h2 className="text-xl font-bold">Konum</h2>
 
-              <div className="mt-5 rounded-xl border border-zinc-200 bg-zinc-50 p-6">
+              <div className="mt-5 rounded-xl border border-[#E7E2D9] bg-[#F8F6F1] p-6">
                 <div className="flex items-start gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blue-600 text-white">
                     ●
@@ -506,7 +513,7 @@ export default async function PropertyDetailPage({
                   {featureEntries.map(([key, value]) => (
                     <div
                       key={key}
-                      className="flex items-start justify-between gap-5 rounded-lg bg-zinc-50 px-4 py-3 text-sm"
+                      className="flex items-start justify-between gap-5 rounded-lg border border-[#ECE7DE] bg-[#F8F6F1] px-4 py-3 text-sm"
                     >
                       <span className="text-zinc-500">{key}</span>
 
@@ -521,29 +528,107 @@ export default async function PropertyDetailPage({
           </section>
         </section>
 
-        {/* ALT İLETİŞİM */}
-        <section className="mt-7 rounded-2xl border border-blue-100 bg-blue-50 p-6 text-center md:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-blue-600">
-            Detaylı Bilgi ve Randevu
-          </p>
+        {/* ÖNE ÇIKAN PORTFÖYLER */}
+        {featuredProperties.length > 0 && (
+          <section className="mt-7 overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm">
+            {/* BAŞLIK */}
+            <div className="flex items-center justify-between border-b border-zinc-100 px-6 py-4 md:px-7">
+              <div>
+                <h2 className="mt-1 text-xl font-bold text-zinc-950">
+                  İlginizi çekebilecek diğer portföyler
+                </h2>
+              </div>
 
-          <h2 className="mt-3 text-2xl font-bold md:text-3xl">
-            Bu portföy hakkında görüşelim.
-          </h2>
+              <a
+                href="/#portfoyler"
+                className="hidden text-sm font-semibold text-zinc-500 transition hover:text-blue-600 sm:block"
+              >
+                Tüm Portföyler →
+              </a>
+            </div>
 
-          <p className="mx-auto mt-3 max-w-2xl text-zinc-600">
-            Gayrimenkul hakkında detaylı bilgi, yer gösterimi ve randevu için
-            doğrudan iletişime geçebilirsiniz.
-          </p>
+            {/* PORTFÖY ŞERİDİ */}
+            <div className="grid divide-y divide-zinc-100 lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+              {featuredProperties.map((featuredProperty) => (
+                <article
+                  key={featuredProperty.id}
+                  className="group flex min-h-[180px] gap-4 p-4 transition hover:bg-[#FAF8F4]"
+                >
+                  {/* GÖRSEL */}
+                  <a
+                    href={`/portfoy/${featuredProperty.id}`}
+                    className="relative w-[42%] shrink-0 overflow-hidden rounded-xl bg-[#F8F6F1]"
+                  >
+                    {featuredProperty.image ? (
+                      <img
+                        src={featuredProperty.image}
+                        alt={featuredProperty.title}
+                        className="h-full min-h-[145px] w-full object-cover transition duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full min-h-[145px] items-center justify-center px-3 text-center text-xs text-zinc-400">
+                        Görsel yakında
+                      </div>
+                    )}
 
-          <a
-            href="tel:+905301591856"
-            className="mt-6 inline-block rounded-xl bg-blue-600 px-7 py-3.5 font-semibold text-white transition hover:bg-blue-700"
-          >
-            Bilal Başol&apos;u Ara
-          </a>
-        </section>
+                    <span className="absolute left-2.5 top-2.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-zinc-950 shadow-sm">
+                      {featuredProperty.category}
+                    </span>
+                  </a>
+
+                  {/* BİLGİ */}
+                  <div className="flex min-w-0 flex-1 flex-col py-1">
+                    <p className="truncate text-[11px] font-medium text-blue-600">
+                      {featuredProperty.neighborhood} •{" "}
+                      {featuredProperty.district}
+                    </p>
+
+                    <a href={`/portfoy/${featuredProperty.id}`}>
+                      <h3 className="mt-2 line-clamp-2 text-sm font-semibold leading-5 text-zinc-950 transition group-hover:text-blue-600">
+                        {featuredProperty.title}
+                      </h3>
+                    </a>
+
+                    <div className="mt-2 flex flex-wrap gap-x-1.5 text-[11px] text-zinc-500">
+                      {featuredProperty.rooms && (
+                        <span>{featuredProperty.rooms}</span>
+                      )}
+
+                      {featuredProperty.rooms && featuredProperty.grossArea && (
+                        <span>•</span>
+                      )}
+
+                      {featuredProperty.grossArea && (
+                        <span>{featuredProperty.grossArea} m²</span>
+                      )}
+
+                      {(featuredProperty.rooms ||
+                        featuredProperty.grossArea) && <span>•</span>}
+
+                      <span>{featuredProperty.propertyType}</span>
+                    </div>
+
+                    <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+                      <p className="text-[15px] font-bold text-zinc-950">
+                        {featuredProperty.priceText}
+                      </p>
+
+                      <a
+                        href={`/portfoy/${featuredProperty.id}`}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-zinc-200 text-xs text-zinc-700 transition hover:border-blue-600 hover:bg-blue-600 hover:text-white"
+                      >
+                        →
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
+
+      <Footer />
     </main>
   );
 }
