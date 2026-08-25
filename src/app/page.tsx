@@ -578,93 +578,272 @@ export default function Home() {
         </button>
       </div>
 
-      {/* HERO + SOL SOSYAL PANEL */}
-      <section className="relative min-h-[602px] overflow-hidden bg-[#F3F0EA]">
-        {/* SOL PANEL */}
-
-        {/* HERO GÖRSELİ */}
-        <div className="relative flex-1 overflow-hidden">
+      {/* HERO */}
+      <section className="relative overflow-hidden bg-[#F3F0EA]">
+        {/* HERO ANA ALAN */}
+        <div className="relative min-h-[500px] overflow-hidden lg:min-h-[560px]">
+          {/* ARKA PLAN GÖRSELİ */}
           <div
-            className="absolute inset-0 bg-cover bg-center max-h-[460px]"
-            style={{ backgroundImage: "url('/arkaplan.png')" }}
+            className="absolute inset-0 bg-cover bg-[62%_center] lg:bg-center"
+            style={{
+              backgroundImage: "url('/arkaplan.png')",
+            }}
           />
 
-          {/* Daha açık ve ferah katmanlar */}
-          <div className="" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
+          {/* GENEL YUMUŞATMA */}
+          <div className="absolute inset-0 bg-white/10" />
 
-          <div className="relative z-10 flex max-h-[460px] items-center px-7 py-12 md:px-14 lg:px-20">
-            <div className="w-full max-w-[760px]">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.35em] text-slate-700 md:text-sm">
-                Eskişehir Gayrimenkul Danışmanlığı
-              </p>
+          {/* SOL TARAFI BEYAZA YUMUŞAT */}
+          <div
+            className="
+        absolute inset-0
+        bg-gradient-to-r
+        from-white
+        via-white/95
+        to-white/30
+        lg:via-white/50
+        lg:to-transparent
+      "
+          />
 
-              <h1 className="max-w-[760px] text-4xl font-bold leading-[1.05] tracking-tight text-slate-950 md:text-6xl xl:text-[64px]">
+          {/* ALT GEÇİŞ */}
+          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F3F0EA] via-[#F3F0EA]/45 to-transparent" />
+
+          {/* MOBİLDE EK OKUNABİLİRLİK */}
+          <div className="absolute inset-0 bg-white/25 lg:hidden" />
+
+          {/* İÇERİK */}
+          <div className="relative z-10 mx-auto flex min-h-[500px] max-w-[1500px] items-center px-6 py-12 md:px-12 lg:min-h-[560px] lg:px-20">
+            {/* SOL METİN */}
+            <div className="relative z-20 w-full max-w-[720px] pb-20 lg:w-[58%] lg:pb-0">
+              {/* ÜST ETİKET */}
+              <div className="mb-5 flex items-center gap-3">
+                <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
+
+                <p className="text-[11px] font-semibold uppercase tracking-[0.32em] text-zinc-600 md:text-xs">
+                  Eskişehir Gayrimenkul Danışmanlığı
+                </p>
+              </div>
+
+              {/* BAŞLIK */}
+              <h1
+                className="
+            max-w-[700px]
+            text-[42px]
+            font-semibold
+            leading-[1.02]
+            tracking-[-0.035em]
+            text-zinc-950
+            sm:text-5xl
+            md:text-6xl
+            lg:text-[68px]
+          "
+              >
                 Doğru Gayrimenkul.
                 <br />
-                Doğru Yatırım.
+                <span className="text-zinc-800">Doğru Yatırım.</span>
               </h1>
 
-              <p className="mt-6 max-w-[620px] text-base leading-7 text-slate-800 md:text-lg">
+              {/* AÇIKLAMA */}
+              <p className="mt-6 max-w-[590px] text-sm leading-7 text-zinc-600 sm:text-base md:text-lg">
                 Konut, ticari gayrimenkul, arsa ve yatırım fırsatlarını
                 profesyonel danışmanlıkla keşfedin.
               </p>
 
               {/* HERO ARAMA */}
-              <div className="mt-8 w-full max-w-[700px]">
-                <div className="flex min-h-16 items-center rounded-2xl bg-white p-2 shadow-xl shadow-black/10">
-                  <div className="flex flex-1 items-center px-4">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      className="mr-3 h-5 w-5 shrink-0 text-slate-600"
+              <div className="mt-8 w-full max-w-[950px]">
+                <div className="grid overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_16px_45px_rgba(0,0,0,0.12)] md:grid-cols-[1fr_1fr_1fr_1fr_auto]">
+                  {/* KONUM */}
+                  <div className="flex min-h-[78px] flex-col justify-center border-b border-zinc-200 px-5 md:border-b-0 md:border-r">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-500">
+                      Konum
+                    </span>
+
+                    <div className="mt-1.5 flex items-center gap-2">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        className="h-4 w-4 shrink-0 text-blue-600"
+                      >
+                        <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
+                        <circle cx="12" cy="10" r="2" />
+                      </svg>
+
+                      <select
+                        className="w-full cursor-pointer bg-transparent text-sm font-medium text-zinc-950 outline-none"
+                        defaultValue="Eskişehir"
+                      >
+                        <option>Eskişehir</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* GAYRİMENKUL TİPİ */}
+                  <div className="flex min-h-[78px] flex-col justify-center border-b border-zinc-200 px-5 md:border-b-0 md:border-r">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-500">
+                      Gayrimenkul Tipi
+                    </span>
+
+                    <div className="mt-1.5 flex items-center gap-2">
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        className="h-4 w-4 shrink-0 text-blue-600"
+                      >
+                        <path d="M4 20V8l8-5 8 5v12" />
+                        <path d="M9 20v-6h6v6" />
+                      </svg>
+
+                      <select
+                        className="w-full cursor-pointer bg-transparent text-sm font-medium text-zinc-950 outline-none"
+                        defaultValue="Tümü"
+                      >
+                        <option>Tümü</option>
+                        <option>Daire</option>
+                        <option>Villa</option>
+                        <option>Arsa</option>
+                        <option>Ticari</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* MİNİMUM FİYAT */}
+                  <div className="flex min-h-[78px] flex-col justify-center border-b border-zinc-200 px-5 md:border-b-0 md:border-r">
+                    <label
+                      htmlFor="hero-min-price"
+                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-500"
                     >
-                      <circle cx="11" cy="11" r="7" />
-                      <path d="m20 20-4-4" />
-                    </svg>
+                      Minimum Fiyat
+                    </label>
 
                     <input
+                      id="hero-min-price"
                       type="text"
-                      value={heroSearch}
-                      onChange={(e) => setHeroSearch(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          handleHeroSearch();
-                        }
-                      }}
-                      placeholder="Mahalle, ilçe veya portföy ara..."
-                      className="w-full bg-transparent text-base text-slate-900 outline-none placeholder:text-slate-400"
+                      inputMode="numeric"
+                      placeholder="Örn. 2.500.000 TL"
+                      className="mt-1.5 w-full bg-transparent text-sm font-medium text-zinc-950 outline-none placeholder:font-normal placeholder:text-zinc-400"
                     />
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={handleHeroSearch}
-                    className="flex h-12 shrink-0 items-center justify-center rounded-xl bg-blue-600 px-6 text-base font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md"
-                  >
-                    Portföy Ara
-                  </button>
+                  {/* MAKSİMUM FİYAT */}
+                  <div className="flex min-h-[78px] flex-col justify-center border-b border-zinc-200 px-5 md:border-b-0 md:border-r">
+                    <label
+                      htmlFor="hero-max-price"
+                      className="text-[10px] font-semibold uppercase tracking-[0.12em] text-zinc-500"
+                    >
+                      Maksimum Fiyat
+                    </label>
+
+                    <input
+                      id="hero-max-price"
+                      type="text"
+                      inputMode="numeric"
+                      placeholder="Örn. 10.000.000 TL"
+                      className="mt-1.5 w-full bg-transparent text-sm font-medium text-zinc-950 outline-none placeholder:font-normal placeholder:text-zinc-400"
+                    />
+                  </div>
+
+                  {/* PORTFÖY ARA */}
+                  <div className="flex items-center justify-center p-2.5">
+                    <button
+                      type="button"
+                      onClick={handleHeroSearch}
+                      className="flex h-[58px] w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-6 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition duration-200 hover:bg-blue-700 hover:shadow-md md:w-auto"
+                    >
+                      Portföy Ara
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        className="h-4 w-4"
+                      >
+                        <circle cx="11" cy="11" r="7" />
+                        <path d="m20 20-4-4" />
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
+            </div>
+
+            {/* SAĞ BİLAL BAŞOL GÖRSELİ */}
+            <div
+              className="
+    pointer-events-none
+    absolute
+    bottom-0
+    right-[155px]
+    z-10
+    hidden
+    h-full
+    w-[65%]
+    items-end
+    justify-center
+    lg:flex
+  "
+            >
+              {/* PORTRE ARKASI HAFİF IŞIK */}
+              <div className="absolute bottom-0 right-[100%] h-[78%] w-[72%] rounded-full bg-white/30 blur-3xl" />
+
+              <img
+                src="/bilal-basol.png"
+                alt="Bilal Başol Gayrimenkul Danışmanı"
+                className="
+      absolute
+      bottom-[-20px]
+      right-[-50px]
+      h-[550px]
+      w-auto
+      max-w-none
+      object-contain
+      object-bottom
+      drop-shadow-[0_22px_28px_rgba(0,0,0,0.18)]
+    "
+              />
+            </div>
+
+            {/* TABLET PORTRE */}
+            <div className="pointer-events-none absolute bottom-0 right-[-55px] z-10 hidden md:block lg:hidden">
+              <img
+                src="/bilal-basol.png"
+                alt=""
+                className="max-h-[380px] w-auto object-contain object-bottom opacity-90"
+              />
             </div>
           </div>
         </div>
 
         {/* GÜVEN PANELİ */}
-        <div className="bg-[#F3F0EA] px-6 py-6 md:px-12 lg:px-20">
-          <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[32px] border border-zinc-200 bg-white shadow-sm md:grid-cols-2 xl:grid-cols-4">
-            {" "}
+        <div className="relative z-20 -mt-5 bg-[#F3F0EA] px-5 pb-6 md:px-12 lg:px-20">
+          <div
+            className="
+        mx-auto
+        grid
+        max-w-7xl
+        overflow-hidden
+        rounded-[26px]
+        border
+        border-zinc-200
+        bg-white
+        shadow-[0_12px_35px_rgba(15,23,42,0.07)]
+        sm:grid-cols-2
+        xl:grid-cols-4
+      "
+          >
             {/* GÜVENİLİR DANIŞMANLIK */}
-            <div className="flex items-center gap-4 border-b border-slate-200 p-5 md:border-r x2:border-b-0">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center text-blue-600">
+            <div className="flex items-center gap-4 border-b border-zinc-200 p-5 sm:border-r xl:border-b-0">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center text-blue-600">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
-                  className="h-10 w-10"
+                  className="h-9 w-9"
                 >
                   <path d="M12 3 4.5 6v5.5c0 4.8 3.2 7.8 7.5 9.5 4.3-1.7 7.5-4.7 7.5-9.5V6L12 3Z" />
                   <path d="m9 12 2 2 4-4" />
@@ -672,24 +851,25 @@ export default function Home() {
               </div>
 
               <div>
-                <p className="font-semibold text-slate-950">
+                <p className="text-sm font-semibold text-zinc-950">
                   Güvenilir Danışmanlık
                 </p>
 
-                <p className="mt-1 text-xs leading-5 text-slate-500">
+                <p className="mt-1 text-xs leading-5 text-zinc-500">
                   Şeffaf, dürüst ve profesyonel danışmanlık anlayışı.
                 </p>
               </div>
             </div>
+
             {/* DOĞRU FİYAT ANALİZİ */}
-            <div className="flex items-center gap-4 border-b border-slate-200 px-6 py-4 xl:border-b-0 xl:border-r">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center text-blue-600">
+            <div className="flex items-center gap-4 border-b border-zinc-200 p-5 xl:border-b-0 xl:border-r">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center text-blue-600">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
-                  className="h-10 w-10"
+                  className="h-9 w-9"
                 >
                   <path d="M4 20V10" />
                   <path d="M9 20V14" />
@@ -700,24 +880,25 @@ export default function Home() {
               </div>
 
               <div>
-                <p className="font-semibold text-slate-950">
+                <p className="text-sm font-semibold text-zinc-950">
                   Doğru Fiyat Analizi
                 </p>
 
-                <p className="mt-1 text-xs leading-5 text-slate-500">
+                <p className="mt-1 text-xs leading-5 text-zinc-500">
                   Piyasa analizleriyle en doğru fiyat değerlendirmesi.
                 </p>
               </div>
             </div>
+
             {/* ZAMANINDA SONUÇ */}
-            <div className="flex items-center gap-4 border-b border-slate-200 px-6 py-4 md:border-r xl:border-b-0">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center text-blue-600">
+            <div className="flex items-center gap-4 border-b border-zinc-200 p-5 sm:border-r sm:border-b-0">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center text-blue-600">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
-                  className="h-10 w-10"
+                  className="h-9 w-9"
                 >
                   <path d="m8 12 3 3 5-6" />
                   <path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0Z" />
@@ -725,22 +906,25 @@ export default function Home() {
               </div>
 
               <div>
-                <p className="font-semibold text-slate-950">Zamanında Sonuç</p>
+                <p className="text-sm font-semibold text-zinc-950">
+                  Zamanında Sonuç
+                </p>
 
-                <p className="mt-1 text-xs leading-5 text-slate-500">
+                <p className="mt-1 text-xs leading-5 text-zinc-500">
                   Hızlı, etkili ve sonuç odaklı çözümler.
                 </p>
               </div>
             </div>
+
             {/* ESKİŞEHİR UZMANI */}
-            <div className="flex items-center gap-4 px-6 py-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center text-blue-600">
+            <div className="flex items-center gap-4 p-5">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center text-blue-600">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
-                  className="h-10 w-10"
+                  className="h-9 w-9"
                 >
                   <path d="M12 21s6-5.2 6-11a6 6 0 1 0-12 0c0 5.8 6 11 6 11Z" />
                   <circle cx="12" cy="10" r="2" />
@@ -748,9 +932,11 @@ export default function Home() {
               </div>
 
               <div>
-                <p className="font-semibold text-slate-950">Eskişehir Uzmanı</p>
+                <p className="text-sm font-semibold text-zinc-950">
+                  Eskişehir Uzmanı
+                </p>
 
-                <p className="mt-1 text-xs leading-5 text-slate-500">
+                <p className="mt-1 text-xs leading-5 text-zinc-500">
                   Bölgeye hakim, geniş portföy ve güçlü network.
                 </p>
               </div>
@@ -1012,7 +1198,7 @@ export default function Home() {
 
                           <a
                             href={`/portfoy/${property.id}`}
-                            className="mt-3 block rounded-lg bg-zinc-950 px-3 py-2.5 text-center text-xs font-semibold text-white transition hover:bg-blue-600"
+                            className="mt-3 block rounded-lg bg-zinc-700 px-3 py-2.5 text-center text-xs font-semibold text-white transition hover:bg-blue-600"
                           >
                             Portföyü İncele
                           </a>
