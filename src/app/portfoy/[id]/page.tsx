@@ -4,8 +4,99 @@ import { getPropertyOverride } from "@/lib/property-overrides";
 import { notFound } from "next/navigation";
 import ContactModalButton from "@/components/ContactModalButton";
 import Footer from "@/components/Footer";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const { id } = await params;
+
+  const property = await getPropertyById(id);
+
+  if (!property) {
+    return {
+      title: "Portföy Bulunamadı",
+      robots: {
+        index: false,
+        follow: false,
+      },
+    };
+  }
+
+  const override = await getPropertyOverride(id);
+
+  const title = override?.title ?? property.title;
+  const descriptionSource = override?.description ?? property.description ?? "";
+
+  const plainDescription = descriptionSource
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const location = [property.neighborhood, property.district, property.city]
+    .filter(Boolean)
+    .join(", ");
+
+  const seoDescription =
+    plainDescription.length > 0
+      ? plainDescription.slice(0, 155)
+      : `${location} bölgesinde ${property.category.toLocaleLowerCase(
+          "tr-TR",
+        )} ${property.propertyType.toLocaleLowerCase(
+          "tr-TR",
+        )}. Bilal Başol gayrimenkul portföyünü inceleyin.`;
+
+  const image = override?.cover_image ?? property.image ?? property.images?.[0];
+
+  const canonicalUrl = `https://www.bilalbasol.com/portfoy/${property.id}`;
+
+  return {
+    title,
+
+    description: seoDescription,
+
+    alternates: {
+      canonical: canonicalUrl,
+    },
+
+    openGraph: {
+      type: "website",
+      locale: "tr_TR",
+      url: canonicalUrl,
+      siteName: "Bilal Başol Gayrimenkul Danışmanlığı",
+      title,
+      description: seoDescription,
+      images: image
+        ? [
+            {
+              url: image,
+              alt: title,
+            },
+          ]
+        : undefined,
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: seoDescription,
+      images: image ? [image] : undefined,
+    },
+
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+      },
+    },
+  };
+}
 
 export default async function PropertyDetailPage({
   params,

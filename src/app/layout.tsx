@@ -77,13 +77,77 @@ export const metadata: Metadata = {
   },
 };
 
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://www.bilalbasol.com/#bilal-basol",
+      name: "Bilal Başol",
+      url: "https://www.bilalbasol.com",
+      jobTitle: "Gayrimenkul Danışmanı",
+      description:
+        "Eskişehir'de konut, ticari gayrimenkul, arsa ve yatırım amaçlı gayrimenkuller konusunda danışmanlık hizmeti sunan gayrimenkul danışmanı.",
+      image: "https://www.bilalbasol.com/bilal-basol.png",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Eskişehir",
+        addressCountry: "TR",
+      },
+      knowsAbout: [
+        "Gayrimenkul",
+        "Emlak Danışmanlığı",
+        "Gayrimenkul Yatırımı",
+        "Konut",
+        "Ticari Gayrimenkul",
+        "Arsa",
+      ],
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://www.bilalbasol.com/#business",
+      name: "Bilal Başol Gayrimenkul Danışmanlığı",
+      url: "https://www.bilalbasol.com",
+      image: "https://www.bilalbasol.com/bilal-basol.png",
+      description:
+        "Eskişehir'de satılık, kiralık, ticari ve yatırım amaçlı gayrimenkuller için profesyonel danışmanlık hizmetleri.",
+      areaServed: {
+        "@type": "City",
+        name: "Eskişehir",
+      },
+      founder: {
+        "@id": "https://www.bilalbasol.com/#bilal-basol",
+      },
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.bilalbasol.com/#website",
+      url: "https://www.bilalbasol.com",
+      name: "Bilal Başol Gayrimenkul Danışmanlığı",
+      inLanguage: "tr-TR",
+      publisher: {
+        "@id": "https://www.bilalbasol.com/#business",
+      },
+    },
+  ],
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="tr"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+
+        {children}
+      </body>
     </html>
   );
 }
