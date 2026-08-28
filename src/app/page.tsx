@@ -584,7 +584,14 @@ export default function Home() {
         <div className="relative min-h-[500px] overflow-hidden lg:min-h-[560px]">
           {/* ARKA PLAN GÖRSELİ */}
           <div
-            className="absolute inset-0 bg-cover bg-[62%_center] lg:bg-center"
+            className="
+    absolute inset-0
+    bg-cover
+    bg-[78%_center]
+    sm:bg-[74%_center]
+    md:bg-[70%_center]
+    lg:bg-center
+  "
             style={{
               backgroundImage: "url('/arkaplan.png')",
             }}
@@ -609,13 +616,10 @@ export default function Home() {
           {/* ALT GEÇİŞ */}
           <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#F3F0EA] via-[#F3F0EA]/45 to-transparent" />
 
-          {/* MOBİLDE EK OKUNABİLİRLİK */}
-          <div className="absolute inset-0 bg-white/25 lg:hidden" />
-
           {/* İÇERİK */}
           <div className="relative z-10 mx-auto flex min-h-[500px] max-w-[1500px] items-center px-6 py-12 md:px-12 lg:min-h-[560px] lg:px-20">
             {/* SOL METİN */}
-            <div className="relative z-20 w-full max-w-[720px] pb-20 lg:w-[58%] lg:pb-0">
+            <div className="relative z-20 w-full max-w-[720px] pb-6 md:pb-20 lg:w-[58%] lg:pb-0">
               {/* ÜST ETİKET */}
               <div className="mb-5 flex items-center gap-3">
                 <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
@@ -629,7 +633,10 @@ export default function Home() {
               <h1
                 className="
             max-w-[700px]
-            text-[42px]
+text-[39px]
+sm:text-5xl
+md:text-6xl
+lg:text-[68px]
             font-semibold
             leading-[1.02]
             tracking-[-0.035em]
@@ -650,8 +657,8 @@ export default function Home() {
                 profesyonel danışmanlıkla keşfedin.
               </p>
 
-              {/* HERO ARAMA */}
-              <div className="mt-8 w-full max-w-[950px]">
+              {/* HERO ARAMA - MOBİLDE GİZLİ */}
+              <div className="mt-8 hidden w-full max-w-[950px] md:block">
                 <div className="grid overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_16px_45px_rgba(0,0,0,0.12)] md:grid-cols-[1fr_1fr_1fr_1fr_auto]">
                   {/* KONUM */}
                   <div className="flex min-h-[78px] flex-col justify-center border-b border-zinc-200 px-5 md:border-b-0 md:border-r">
@@ -819,7 +826,7 @@ export default function Home() {
         </div>
 
         {/* GÜVEN PANELİ */}
-        <div className="relative z-20 -mt-5 bg-[#F3F0EA] px-5 pb-6 md:px-12 lg:px-20">
+        <div className="relative z-20 -mt-32 bg-transparent px-4 pb-6 md:-mt-5 md:bg-[#F3F0EA] md:px-12 lg:px-20">
           <div
             className="
         mx-auto
@@ -1143,14 +1150,14 @@ export default function Home() {
             ) : (
               <>
                 {/* 10 PORTFÖY */}
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+                <div className="grid grid-cols-3 gap-2">
                   {currentResults.map((property) => (
                     <article
                       key={property.id}
-                      className="group flex min-h-[360px] flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
+                      className="group flex min-h-[250px] flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:min-h-[320px] sm:rounded-2xl"
                     >
                       <a href={`/portfoy/${property.id}`}>
-                        <div className="relative h-44 overflow-hidden">
+                        <div className="relative h-24 overflow-hidden sm:h-36 lg:h-44">
                           {getDisplayCoverImage(property.id, property.image) ? (
                             <img
                               src={getDisplayCoverImage(
@@ -1159,12 +1166,34 @@ export default function Home() {
                               )}
                               alt={getDisplayTitle(property.id, property.title)}
                               className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                              onError={(e) => {
+                                const image = e.currentTarget;
+
+                                image.style.display = "none";
+
+                                const fallback =
+                                  image.nextElementSibling as HTMLElement | null;
+
+                                if (fallback) {
+                                  fallback.style.display = "flex";
+                                }
+                              }}
                             />
-                          ) : (
-                            <div className="flex h-full items-center justify-center bg-zinc-100 text-xs text-zinc-400">
-                              Görsel yakında
-                            </div>
-                          )}
+                          ) : null}
+
+                          <div
+                            className="hidden h-full items-center justify-center bg-zinc-100 px-4 text-center text-xs text-zinc-400"
+                            style={{
+                              display: getDisplayCoverImage(
+                                property.id,
+                                property.image,
+                              )
+                                ? "none"
+                                : "flex",
+                            }}
+                          >
+                            Görsel yakında
+                          </div>
 
                           <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold shadow-sm">
                             {property.category}
@@ -1172,12 +1201,12 @@ export default function Home() {
                         </div>
                       </a>
 
-                      <div className="flex flex-1 flex-col p-4">
+                      <div className="flex flex-1 flex-col p-2 sm:p-3 lg:p-4">
                         <p className="truncate text-[11px] font-medium text-blue-600">
                           {property.neighborhood} • {property.district}
                         </p>
 
-                        <h3 className="mt-2 line-clamp-2 text-sm font-semibold leading-5">
+                        <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-xs lg:text-sm lg:leading-5">
                           {getDisplayTitle(property.id, property.title)}
                         </h3>
 
@@ -1192,13 +1221,13 @@ export default function Home() {
                         </div>
 
                         <div className="mt-auto border-t border-zinc-100 pt-4">
-                          <p className="text-base font-bold">
+                          <p className="text-[11px] font-bold sm:text-sm lg:text-base">
                             {getDisplayPrice(property.id, property.priceText)}
                           </p>
 
                           <a
                             href={`/portfoy/${property.id}`}
-                            className="mt-3 block rounded-lg bg-zinc-700 px-3 py-2.5 text-center text-xs font-semibold text-white transition hover:bg-blue-600"
+                            className="mt-2 block rounded-md bg-zinc-700 px-1 py-2 text-center text-[9px] font-semibold text-white transition hover:bg-blue-600 sm:mt-3 sm:rounded-lg sm:px-3 sm:py-2.5 sm:text-xs"
                           >
                             Portföyü İncele
                           </a>
@@ -1411,32 +1440,32 @@ export default function Home() {
           </div>
 
           {/* SOSYAL MEDYA KARTLARI */}
-          <div className="grid gap-7 lg:grid-cols-3">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-7">
             {/* INSTAGRAM */}
             <article className="flex h-full flex-col group overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-80 overflow-hidden">
+              <div className="relative h-28 overflow-hidden sm:h-48 lg:h-80">
                 <img
                   src="/hero-emlak.jpg"
                   alt="Bilal Başol Instagram paylaşımı"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-zinc-950 shadow-lg backdrop-blur-sm">
+                <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[10px] lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
                   <FaInstagram className="text-[18px] text-[#E4405F]" />
                   <span>Instagram</span>
                 </div>
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
+              <div className="flex flex-1 flex-col p-2 sm:p-4 lg:p-6">
                 <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
                   Yeni Portföy
                 </p>
 
-                <h3 className="mt-3 text-2xl font-semibold">
+                <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-base lg:mt-3 lg:text-2xl">
                   Eskişehir&apos;den yeni bir yatırım fırsatı
                 </h3>
 
-                <p className="mt-4 leading-7 text-zinc-600">
+                <p className="mt-2 line-clamp-3 text-[9px] leading-4 text-zinc-600 sm:text-sm sm:leading-6 lg:mt-4 lg:text-base lg:leading-7">
                   Yeni portföyler, saha çalışmaları ve gayrimenkul dünyasından
                   güncel gelişmeler.
                 </p>
@@ -1455,7 +1484,7 @@ export default function Home() {
 
             {/* YOUTUBE */}
             <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-80 overflow-hidden">
+              <div className="relative h-28 overflow-hidden sm:h-48 lg:h-80">
                 {youtubeLoading ? (
                   <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-sm text-zinc-400">
                     YouTube içeriği yükleniyor...
@@ -1475,7 +1504,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-black/10 transition group-hover:bg-black/20" />
 
                     {/* YOUTUBE ETİKETİ */}
-                    <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-zinc-950 shadow-lg backdrop-blur-sm">
+                    <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[10px] lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
                       <FaYoutube className="text-[19px] text-[#FF0000]" />
 
                       <span>YouTube</span>
@@ -1489,7 +1518,7 @@ export default function Home() {
                         className="absolute inset-0 flex items-center justify-center"
                         aria-label="Videoyu oynat"
                       >
-                        <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white/95 text-2xl text-black shadow-2xl transition duration-300 hover:scale-110">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-xs text-black shadow-xl transition duration-300 hover:scale-110 sm:h-12 sm:w-12 sm:text-base lg:h-20 lg:w-20 lg:text-2xl">
                           ▶
                         </span>
                       </button>
@@ -1512,12 +1541,12 @@ export default function Home() {
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
+              <div className="flex flex-1 flex-col p-2 sm:p-4 lg:p-6">
                 <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
                   En Güncel YouTube Videosu
                 </p>
 
-                <h3 className="mt-3 text-2xl font-semibold">
+                <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-base lg:mt-3 lg:text-2xl">
                   {latestYouTubeVideo?.title ?? "Gayrimenkul içerikleri"}
                 </h3>
 
@@ -1542,14 +1571,14 @@ export default function Home() {
 
             {/* FACEBOOK */}
             <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-80 overflow-hidden">
+              <div className="relative h-28 overflow-hidden sm:h-48 lg:h-80">
                 <img
                   src="/hero-emlak.jpg"
                   alt="Bilal Başol Facebook paylaşımı"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-xs font-semibold text-zinc-950 shadow-lg backdrop-blur-sm">
+                <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[10px] lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
                   <div className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#1877F2]">
                     <FaFacebookF className="text-[11px] text-white" />
                   </div>
@@ -1558,16 +1587,16 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex flex-1 flex-col p-6">
+              <div className="flex flex-1 flex-col p-2 sm:p-4 lg:p-6">
                 <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
                   Sahadan Güncel
                 </p>
 
-                <h3 className="mt-3 text-2xl font-semibold">
+                <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-base lg:mt-3 lg:text-2xl">
                   Eskişehir gayrimenkul piyasasından gelişmeler
                 </h3>
 
-                <p className="mt-4 leading-7 text-zinc-600">
+                <p className="mt-2 line-clamp-3 text-[9px] leading-4 text-zinc-600 sm:text-sm sm:leading-6 lg:mt-4 lg:text-base lg:leading-7">
                   Yeni satışlar, portföy çalışmaları ve bölgedeki önemli
                   gayrimenkul gelişmeleri.
                 </p>
