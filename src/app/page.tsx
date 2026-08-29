@@ -1150,14 +1150,14 @@ lg:text-[68px]
             ) : (
               <>
                 {/* 10 PORTFÖY */}
-                <div className="grid grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-3 xl:grid-cols-5">
                   {currentResults.map((property) => (
                     <article
                       key={property.id}
-                      className="group flex min-h-[250px] flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg sm:min-h-[320px] sm:rounded-2xl"
+                      className="group grid min-w-0 grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-lg sm:flex sm:flex-col sm:rounded-2xl"
                     >
                       <a href={`/portfoy/${property.id}`}>
-                        <div className="relative h-24 overflow-hidden sm:h-36 lg:h-44">
+                        <div className="relative h-full min-h-[125px] overflow-hidden sm:h-36 sm:min-h-0 lg:h-44">
                           {getDisplayCoverImage(property.id, property.image) ? (
                             <img
                               src={getDisplayCoverImage(
@@ -1206,7 +1206,7 @@ lg:text-[68px]
                           {property.neighborhood} • {property.district}
                         </p>
 
-                        <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-xs lg:text-sm lg:leading-5">
+                        <h3 className="mt-2 line-clamp-2 text-xs font-semibold leading-4 lg:text-sm lg:leading-5">
                           {getDisplayTitle(property.id, property.title)}
                         </h3>
 
@@ -1221,7 +1221,7 @@ lg:text-[68px]
                         </div>
 
                         <div className="mt-auto border-t border-zinc-100 pt-4">
-                          <p className="text-[11px] font-bold sm:text-sm lg:text-base">
+                          <p className="text-sm font-bold lg:text-base">
                             {getDisplayPrice(property.id, property.priceText)}
                           </p>
 
@@ -1378,7 +1378,7 @@ lg:text-[68px]
 
               {/* ÜST BİLGİ KUTUSU */}
               <div className="absolute left-6 top-6 rounded-2xl bg-white/95 px-5 py-4 shadow-xl backdrop-blur-sm">
-                <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+                <p className="text-[7px] font-medium uppercase leading-3 tracking-[0.08em] text-zinc-400 sm:text-[9px] lg:text-xs">
                   Profesyonel Danışmanlık
                 </p>
 
@@ -1440,32 +1440,32 @@ lg:text-[68px]
           </div>
 
           {/* SOSYAL MEDYA KARTLARI */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-7">
+          <div className="grid grid-cols-1 gap-2 lg:grid-cols-3 lg:gap-7">
             {/* INSTAGRAM */}
-            <article className="flex h-full flex-col group overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-28 overflow-hidden sm:h-48 lg:h-80">
+            <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
+              <div className="relative h-full overflow-hidden lg:h-80">
                 <img
                   src="/hero-emlak.jpg"
                   alt="Bilal Başol Instagram paylaşımı"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[10px] lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
-                  <FaInstagram className="text-[18px] text-[#E4405F]" />
+                <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
+                  <FaInstagram className="text-[14px] text-[#E4405F] lg:text-[18px]" />
                   <span>Instagram</span>
                 </div>
               </div>
 
-              <div className="flex flex-1 flex-col p-2 sm:p-4 lg:p-6">
-                <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+              <div className="flex min-w-0 flex-1 flex-col justify-center p-3 lg:p-6">
+                <p className="text-[8px] font-medium uppercase leading-3 tracking-[0.08em] text-zinc-400 lg:text-xs">
                   Yeni Portföy
                 </p>
 
-                <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-base lg:mt-3 lg:text-2xl">
+                <h3 className="mt-1 line-clamp-2 text-[11px] font-semibold leading-4 lg:mt-3 lg:text-2xl lg:leading-7">
                   Eskişehir&apos;den yeni bir yatırım fırsatı
                 </h3>
 
-                <p className="mt-2 line-clamp-3 text-[9px] leading-4 text-zinc-600 sm:text-sm sm:leading-6 lg:mt-4 lg:text-base lg:leading-7">
+                <p className="mt-1 line-clamp-2 text-[8px] leading-3 text-zinc-600 lg:mt-4 lg:line-clamp-3 lg:text-base lg:leading-7">
                   Yeni portföyler, saha çalışmaları ve gayrimenkul dünyasından
                   güncel gelişmeler.
                 </p>
@@ -1474,7 +1474,7 @@ lg:text-[68px]
                   href="INSTAGRAM_LINKI_BURAYA"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-auto inline-flex items-center gap-2 pt-6 font-semibold transition hover:text-blue-600"
+                  className="mt-2 inline-flex items-center gap-1 text-[8px] font-semibold leading-3 transition hover:text-blue-600 lg:mt-auto lg:gap-2 lg:pt-6 lg:text-base"
                 >
                   Instagram&apos;da Gör
                   <span>→</span>
@@ -1483,10 +1483,10 @@ lg:text-[68px]
             </article>
 
             {/* YOUTUBE */}
-            <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-28 overflow-hidden sm:h-48 lg:h-80">
+            <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
+              <div className="relative h-full overflow-hidden lg:h-80">
                 {youtubeLoading ? (
-                  <div className="flex h-full w-full items-center justify-center bg-zinc-100 text-sm text-zinc-400">
+                  <div className="flex h-full w-full items-center justify-center bg-zinc-100 px-2 text-center text-[8px] text-zinc-400 lg:text-sm">
                     YouTube içeriği yükleniyor...
                   </div>
                 ) : !youtubePlaying ? (
@@ -1500,17 +1500,13 @@ lg:text-[68px]
                       className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     />
 
-                    {/* HAFİF KARARTMA */}
                     <div className="absolute inset-0 bg-black/10 transition group-hover:bg-black/20" />
 
-                    {/* YOUTUBE ETİKETİ */}
-                    <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[10px] lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
-                      <FaYoutube className="text-[19px] text-[#FF0000]" />
-
+                    <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
+                      <FaYoutube className="text-[15px] text-[#FF0000] lg:text-[19px]" />
                       <span>YouTube</span>
                     </div>
 
-                    {/* PLAY BUTONU */}
                     {latestYouTubeVideo?.videoId && (
                       <button
                         type="button"
@@ -1518,7 +1514,7 @@ lg:text-[68px]
                         className="absolute inset-0 flex items-center justify-center"
                         aria-label="Videoyu oynat"
                       >
-                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-white/95 text-xs text-black shadow-xl transition duration-300 hover:scale-110 sm:h-12 sm:w-12 sm:text-base lg:h-20 lg:w-20 lg:text-2xl">
+                        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/95 text-[10px] text-black shadow-xl transition duration-300 hover:scale-110 lg:h-20 lg:w-20 lg:text-2xl">
                           ▶
                         </span>
                       </button>
@@ -1541,16 +1537,16 @@ lg:text-[68px]
                 )}
               </div>
 
-              <div className="flex flex-1 flex-col p-2 sm:p-4 lg:p-6">
-                <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+              <div className="flex min-w-0 flex-1 flex-col justify-center p-3 lg:p-6">
+                <p className="text-[8px] font-medium uppercase leading-3 tracking-[0.08em] text-zinc-400 lg:text-xs">
                   En Güncel YouTube Videosu
                 </p>
 
-                <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-base lg:mt-3 lg:text-2xl">
+                <h3 className="mt-1 line-clamp-2 text-[11px] font-semibold leading-4 lg:mt-3 lg:text-2xl lg:leading-7">
                   {latestYouTubeVideo?.title ?? "Gayrimenkul içerikleri"}
                 </h3>
 
-                <p className="mt-4 line-clamp-3 leading-7 text-zinc-600">
+                <p className="mt-1 line-clamp-2 text-[8px] leading-3 text-zinc-600 lg:mt-4 lg:line-clamp-3 lg:text-base lg:leading-7">
                   {latestYouTubeVideo?.description ||
                     "Gayrimenkul yatırımı, piyasa değerlendirmeleri ve güncel portföyler üzerine içerikler."}
                 </p>
@@ -1560,7 +1556,7 @@ lg:text-[68px]
                     href={latestYouTubeVideo.url}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-auto inline-flex items-center gap-2 pt-6 font-semibold transition hover:text-blue-600"
+                    className="mt-2 inline-flex items-center gap-1 text-[8px] font-semibold leading-3 transition hover:text-blue-600 lg:mt-auto lg:gap-2 lg:pt-6 lg:text-base"
                   >
                     YouTube&apos;da İzle
                     <span>→</span>
@@ -1570,33 +1566,33 @@ lg:text-[68px]
             </article>
 
             {/* FACEBOOK */}
-            <article className="group flex h-full flex-col overflow-hidden rounded-3xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl">
-              <div className="relative h-28 overflow-hidden sm:h-48 lg:h-80">
+            <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
+              <div className="relative h-full overflow-hidden lg:h-80">
                 <img
                   src="/hero-emlak.jpg"
                   alt="Bilal Başol Facebook paylaşımı"
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
 
-                <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm sm:left-3 sm:top-3 sm:text-[10px] lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
-                  <div className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#1877F2]">
-                    <FaFacebookF className="text-[11px] text-white" />
+                <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
+                  <div className="flex h-[15px] w-[15px] items-center justify-center rounded-full bg-[#1877F2] lg:h-[18px] lg:w-[18px]">
+                    <FaFacebookF className="text-[9px] text-white lg:text-[11px]" />
                   </div>
 
                   <span>Facebook</span>
                 </div>
               </div>
 
-              <div className="flex flex-1 flex-col p-2 sm:p-4 lg:p-6">
-                <p className="text-xs font-medium uppercase tracking-wider text-zinc-400">
+              <div className="flex min-w-0 flex-1 flex-col justify-center p-3 lg:p-6">
+                <p className="text-[8px] font-medium uppercase leading-3 tracking-[0.08em] text-zinc-400 lg:text-xs">
                   Sahadan Güncel
                 </p>
 
-                <h3 className="mt-1 line-clamp-2 text-[10px] font-semibold leading-4 sm:mt-2 sm:text-base lg:mt-3 lg:text-2xl">
+                <h3 className="mt-1 line-clamp-2 text-[11px] font-semibold leading-4 lg:mt-3 lg:text-2xl lg:leading-7">
                   Eskişehir gayrimenkul piyasasından gelişmeler
                 </h3>
 
-                <p className="mt-2 line-clamp-3 text-[9px] leading-4 text-zinc-600 sm:text-sm sm:leading-6 lg:mt-4 lg:text-base lg:leading-7">
+                <p className="mt-1 line-clamp-2 text-[8px] leading-3 text-zinc-600 lg:mt-4 lg:line-clamp-3 lg:text-base lg:leading-7">
                   Yeni satışlar, portföy çalışmaları ve bölgedeki önemli
                   gayrimenkul gelişmeleri.
                 </p>
@@ -1605,7 +1601,7 @@ lg:text-[68px]
                   href="FACEBOOK_LINKI_BURAYA"
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-auto inline-flex items-center gap-2 pt-6 font-semibold transition hover:text-blue-600"
+                  className="mt-2 inline-flex items-center gap-1 text-[8px] font-semibold leading-3 transition hover:text-blue-600 lg:mt-auto lg:gap-2 lg:pt-6 lg:text-base"
                 >
                   Facebook&apos;ta Gör
                   <span>→</span>
