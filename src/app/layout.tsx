@@ -13,6 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: {
+    icon: "/bilal-favicon.png?v=2",
+    shortcut: "/bilal-favicon.png?v=2",
+    apple: "/bilal-favicon.png?v=2",
+  },
+
   metadataBase: new URL("https://www.bilalbasol.com"),
 
   title: {
