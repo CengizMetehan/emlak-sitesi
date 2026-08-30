@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import ContactModalButton from "@/components/ContactModalButton";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
+import Image from "next/image";
 
 export const dynamic = "force-dynamic";
 
@@ -386,9 +387,14 @@ export default async function PropertyDetailPage({
               <div className="flex items-center gap-5">
                 {/* PROFİL FOTOĞRAFI */}
                 <div className="h-[76px] w-[76px] shrink-0 overflow-hidden rounded-full border border-zinc-200 bg-zinc-100">
-                  <img
+                  <Image
                     src="/bilal-basol-profil.jpg"
                     alt="Bilal Başol"
+                    width={76}
+                    height={76}
+                    sizes="76px"
+                    quality={75}
+                    loading="lazy"
                     className="h-full w-full object-cover object-top"
                   />
                 </div>
@@ -651,10 +657,14 @@ export default async function PropertyDetailPage({
                     className="relative w-[42%] shrink-0 overflow-hidden rounded-xl bg-[#F8F6F1]"
                   >
                     {featuredProperty.image ? (
-                      <img
+                      <Image
                         src={featuredProperty.image}
                         alt={featuredProperty.title}
-                        className="h-full min-h-[145px] w-full object-cover transition duration-500 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 1024px) 42vw, 200px"
+                        loading="lazy"
+                        quality={65}
+                        className="object-cover transition duration-500 group-hover:scale-105"
                       />
                     ) : (
                       <div className="flex h-full min-h-[145px] items-center justify-center px-3 text-center text-xs text-zinc-400">

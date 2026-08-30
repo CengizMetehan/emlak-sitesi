@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
         hostname: "abdyz9ppcabedpf3.public.blob.vercel-storage.com",
       },
     ],
+
+    qualities: [55, 65, 70, 75, 82, 88],
   },
 };
 

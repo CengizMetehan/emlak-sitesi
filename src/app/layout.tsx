@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   icons: {
-    icon: "/bilal-favicon.png?v=2",
-    shortcut: "/bilal-favicon.png?v=2",
-    apple: "/bilal-favicon.png?v=2",
+    icon: "/bilal-favicon.png",
+    shortcut: "/bilal-favicon.png",
+    apple: "/bilal-favicon.png",
   },
 
   metadataBase: new URL("https://www.bilalbasol.com"),
