@@ -1165,100 +1165,103 @@ lg:text-[68px]
               <>
                 {/* 10 PORTFÖY */}
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-3 xl:grid-cols-5">
-                  {currentResults.map((property) => (
-                    <article
-                      key={property.id}
-                      className="group grid min-w-0 grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-lg sm:flex sm:flex-col sm:rounded-2xl"
-                    >
-                      <a href={`/portfoy/${property.id}`}>
-                        <div className="relative h-full min-h-[125px] overflow-hidden sm:h-36 sm:min-h-0 lg:h-44">
-                          {getDisplayCoverImage(property.id, property.image) ? (
-                            <img
-                              src={getDisplayCoverImage(
-                                property.id,
-                                property.image,
-                              )}
-                              alt={getDisplayTitle(property.id, property.title)}
-                              loading="lazy"
-                              decoding="async"
-                              className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                              onError={(e) => {
-                                const image = e.currentTarget;
+                  {currentResults.map((property) => {
+                    const coverImage = getDisplayCoverImage(
+                      property.id,
+                      property.image,
+                    );
 
-                                image.style.display = "none";
+                    return (
+                      <article
+                        key={property.id}
+                        className="group grid min-w-0 grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-lg sm:flex sm:flex-col sm:rounded-2xl"
+                      >
+                        <a href={`/portfoy/${property.id}`}>
+                          <div className="relative h-full min-h-[125px] overflow-hidden sm:h-36 sm:min-h-0 lg:h-44">
+                            {coverImage ? (
+                              <img
+                                src={coverImage}
+                                alt={getDisplayTitle(
+                                  property.id,
+                                  property.title,
+                                )}
+                                loading="lazy"
+                                decoding="async"
+                                fetchPriority="low"
+                                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                                onError={(e) => {
+                                  const image = e.currentTarget;
 
-                                const fallback =
-                                  image.nextElementSibling as HTMLElement | null;
+                                  image.style.display = "none";
 
-                                if (fallback) {
-                                  fallback.style.display = "flex";
-                                }
+                                  const fallback =
+                                    image.nextElementSibling as HTMLElement | null;
+
+                                  if (fallback) {
+                                    fallback.style.display = "flex";
+                                  }
+                                }}
+                              />
+                            ) : null}
+
+                            <div
+                              className="hidden h-full items-center justify-center bg-zinc-100 px-4 text-center text-xs text-zinc-400"
+                              style={{
+                                display: coverImage ? "none" : "flex",
                               }}
-                            />
-                          ) : null}
+                            >
+                              Görsel yakında
+                            </div>
 
-                          <div
-                            className="hidden h-full items-center justify-center bg-zinc-100 px-4 text-center text-xs text-zinc-400"
-                            style={{
-                              display: getDisplayCoverImage(
-                                property.id,
-                                property.image,
-                              )
-                                ? "none"
-                                : "flex",
-                            }}
-                          >
-                            Görsel yakında
-                          </div>
-
-                          <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold shadow-sm">
-                            {property.category}
-                          </span>
-                        </div>
-                      </a>
-
-                      <div className="flex flex-1 flex-col p-2 sm:p-3 lg:p-4">
-                        <a href={`/portfoy/${property.id}`} className="block">
-                          <p className="truncate text-[11px] font-medium text-blue-600">
-                            {property.neighborhood} • {property.district}
-                          </p>
-
-                          <h3 className="mt-2 line-clamp-2 text-xs font-semibold leading-4 transition hover:text-blue-600 lg:text-sm lg:leading-5">
-                            {getDisplayTitle(property.id, property.title)}
-                          </h3>
-
-                          <div className="mt-3 flex flex-wrap gap-1.5 text-[11px] text-zinc-500">
-                            {property.rooms && <span>{property.rooms}</span>}
-                            {property.rooms && <span>•</span>}
-
-                            {property.grossArea && (
-                              <span>{property.grossArea} m²</span>
-                            )}
-
-                            {property.grossArea && <span>•</span>}
-
-                            <span>{property.propertyType}</span>
+                            <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold shadow-sm">
+                              {property.category}
+                            </span>
                           </div>
                         </a>
 
-                        <div className="mt-auto border-t border-zinc-100 pt-4">
-                          <a
-                            href={`/portfoy/${property.id}`}
-                            className="block text-sm font-bold transition hover:text-blue-600 lg:text-base"
-                          >
-                            {getDisplayPrice(property.id, property.priceText)}
+                        <div className="flex flex-1 flex-col p-2 sm:p-3 lg:p-4">
+                          <a href={`/portfoy/${property.id}`} className="block">
+                            <p className="truncate text-[11px] font-medium text-blue-600">
+                              {property.neighborhood} • {property.district}
+                            </p>
+
+                            <h3 className="mt-2 line-clamp-2 text-xs font-semibold leading-4 transition hover:text-blue-600 lg:text-sm lg:leading-5">
+                              {getDisplayTitle(property.id, property.title)}
+                            </h3>
+
+                            <div className="mt-3 flex flex-wrap gap-1.5 text-[11px] text-zinc-500">
+                              {property.rooms && <span>{property.rooms}</span>}
+                              {property.rooms && <span>•</span>}
+
+                              {property.grossArea && (
+                                <span>{property.grossArea} m²</span>
+                              )}
+
+                              {property.grossArea && <span>•</span>}
+
+                              <span>{property.propertyType}</span>
+                            </div>
                           </a>
 
-                          <a
-                            href={`/portfoy/${property.id}`}
-                            className="mt-2 block rounded-md bg-zinc-700 px-1 py-2 text-center text-[9px] font-semibold text-white transition hover:bg-blue-600 sm:mt-3 sm:rounded-lg sm:px-3 sm:py-2.5 sm:text-xs"
-                          >
-                            Portföyü İncele
-                          </a>
+                          <div className="mt-auto border-t border-zinc-100 pt-4">
+                            <a
+                              href={`/portfoy/${property.id}`}
+                              className="block text-sm font-bold transition hover:text-blue-600 lg:text-base"
+                            >
+                              {getDisplayPrice(property.id, property.priceText)}
+                            </a>
+
+                            <a
+                              href={`/portfoy/${property.id}`}
+                              className="mt-2 block rounded-md bg-zinc-700 px-1 py-2 text-center text-[9px] font-semibold text-white transition hover:bg-blue-600 sm:mt-3 sm:rounded-lg sm:px-3 sm:py-2.5 sm:text-xs"
+                            >
+                              Portföyü İncele
+                            </a>
+                          </div>
                         </div>
-                      </div>
-                    </article>
-                  ))}
+                      </article>
+                    );
+                  })}
                 </div>
 
                 {/* SAYFALAMA */}
