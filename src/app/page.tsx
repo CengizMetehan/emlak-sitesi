@@ -187,7 +187,7 @@ export default function Home() {
     return override?.title ?? originalTitle;
   }
 
-  const [selectedCategory, setSelectedCategory] = useState("Satılık");
+  const [selectedCategory, setSelectedCategory] = useState("Hepsi");
   const [selectedLocation, setSelectedLocation] = useState("Eskişehir");
   const [isSocialMenuOpen, setIsSocialMenuOpen] = useState(false);
   const [minPriceInput, setMinPriceInput] = useState("");
@@ -219,10 +219,27 @@ export default function Home() {
 
   const [youtubeLoading, setYoutubeLoading] = useState(true);
 
+  const scrollToPortfolioTop = () => {
+    window.setTimeout(() => {
+      const element = document.getElementById("portfoy-listesi");
+
+      if (!element) return;
+
+      const targetPosition =
+        element.getBoundingClientRect().top + window.scrollY - 20;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }, 50);
+  };
+
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setSlideDirection("right");
       setCurrentPage((prev) => prev + 1);
+      scrollToPortfolioTop();
     }
   };
 
@@ -230,12 +247,14 @@ export default function Home() {
     if (currentPage > 1) {
       setSlideDirection("left");
       setCurrentPage((prev) => prev - 1);
+      scrollToPortfolioTop();
     }
   };
 
   const goToPage = (page: number) => {
     setSlideDirection(page > currentPage ? "right" : "left");
     setCurrentPage(page);
+    scrollToPortfolioTop();
   };
 
   // SAYFALAMA
@@ -456,7 +475,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[#F3F0EA] text-zinc-950">
       {/* ÜST MENÜ */}
-      <header className="relative z-40 border-b border-zinc-100 bg-[#F3F0EA]">
+      <header className="relative z-40 border-b border-zinc-100 bg-white">
         <div className="mx-auto flex h-[92px] max-w-[1440px] items-center justify-between px-8 md:px-12 lg:px-16">
           <nav className="hidden items-center gap-10 text-[15px] font-medium text-zinc-900 lg:flex">
             {["Satılık", "Kiralık", "Ticari", "Arsa"].map((category) => (
@@ -486,7 +505,7 @@ export default function Home() {
               BİLAL BAŞOL
             </div>
 
-            <div className="mt-1.5 text-[10px] font-medium uppercase tracking-[0.38em] text-blue-600">
+            <div className="mt-1.5 text-[10px] font-medium font-semibold uppercase tracking-[0.38em] text-blue-600">
               Gayrimenkul Danışmanlığı
             </div>
           </a>
@@ -795,6 +814,7 @@ lg:text-[68px]
   "
             >
               {/* PORTRE ARKASI HAFİF IŞIK */}
+
               <div className="absolute bottom-0 right-[100%] h-[78%] w-[72%] rounded-full bg-white/30 blur-3xl" />
 
               <img
@@ -831,7 +851,7 @@ lg:text-[68px]
             className="
         mx-auto
         grid
-        max-w-7xl
+        max-w-[1500px]
         overflow-hidden
         rounded-[26px]
         border
@@ -940,7 +960,7 @@ lg:text-[68px]
 
               <div>
                 <p className="text-sm font-semibold text-zinc-950">
-                  Eskişehir Uzmanı
+                  Eskişehir Uzmanlığı
                 </p>
 
                 <p className="mt-1 text-xs leading-5 text-zinc-500">
@@ -973,30 +993,24 @@ lg:text-[68px]
 
           {/* KOMPAKT ARAMA PANELİ */}
           <div className="rounded-2xl border border-zinc-200 bg-zinc-50 p-4">
-            {/* KATEGORİLER */}
-            <div className="mb-4 flex flex-wrap gap-2">
-              {["Satılık", "Kiralık", "Ticari", "Arsa"].map((item) => {
-                const isSelected = selectedCategory === item;
-
-                return (
-                  <button
-                    key={item}
-                    type="button"
-                    onClick={() => setSelectedCategory(item)}
-                    className={`rounded-full px-5 py-2 text-sm font-semibold transition ${
-                      isSelected
-                        ? "bg-blue-600 text-white shadow-sm"
-                        : "border border-zinc-200 bg-white text-zinc-700 hover:border-blue-300 hover:text-blue-600"
-                    }`}
-                  >
-                    {item}
-                  </button>
-                );
-              })}
-            </div>
-
             {/* FİLTRELER */}
-            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1fr_auto]">
+            <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-[1fr_1fr_1fr_1fr_1fr_auto]">
+              {/* İLAN TÜRÜ */}
+              <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
+                <label className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
+                  İlan Türü
+                </label>
+
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="mt-1 w-full bg-transparent text-sm font-medium text-zinc-950 outline-none"
+                >
+                  <option value="Hepsi">Hepsi</option>
+                  <option value="Satılık">Satılık</option>
+                  <option value="Kiralık">Kiralık</option>
+                </select>
+              </div>
               {/* KONUM */}
               <div className="rounded-xl border border-zinc-200 bg-white px-4 py-3">
                 <label className="block text-[10px] font-semibold uppercase tracking-wider text-zinc-400">
@@ -1107,8 +1121,8 @@ lg:text-[68px]
           {/* TÜM PORTFÖYLER */}
           <div id="arama-sonuclari" className="mt-10 scroll-mt-24">
             <div className="mb-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.25em] text-blue-600">
+              <div id="portfoy-listesi">
+                <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
                   Portföyler
                 </p>
 
