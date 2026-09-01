@@ -972,6 +972,213 @@ lg:text-[68px]
         </div>
       </section>
 
+      {/* ÖNE ÇIKAN PROJELER */}
+      <section className="bg-[#F3F0EA] px-6 py-8 md:px-12 lg:px-20">
+        <div className="mx-auto max-w-[1500px]">
+          <div className="mb-7 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
+                Öne Çıkan Projeler
+              </p>
+
+              <h2 className="mt-2 max-w-3xl text-2xl font-semibold tracking-tight text-zinc-950 md:text-4xl">
+                Öne Çıkan Projeler
+              </h2>
+
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600 md:text-base">
+                Bilal Başol danışmanlığında seçilmiş proje fırsatlarını
+                inceleyin, güncel satış seçenekleri ve ödeme koşulları hakkında
+                doğrudan bilgi alın.
+              </p>
+            </div>
+
+            <a
+              href="tel:+905XXXXXXXXX"
+              className="inline-flex w-fit items-center justify-center rounded-full border border-zinc-300 bg-white px-5 py-3 text-sm font-semibold text-zinc-900 transition hover:border-blue-600 hover:text-blue-600"
+            >
+              Projeler hakkında bilgi al
+            </a>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-2">
+            {/* WM PRIME */}
+            <article className="group relative min-h-[430px] overflow-hidden rounded-[30px] bg-zinc-950 shadow-sm">
+              <img
+                src="/wm-prime.jpg"
+                alt="WM Prime Eskişehir"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10" />
+
+              <div className="absolute left-5 top-5 z-10 flex flex-wrap gap-2">
+                <span className="rounded-full bg-blue-600 px-3 py-1.5 text-[11px] font-semibold text-white">
+                  ESKİŞEHİR
+                </span>
+
+                <span className="rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-semibold text-zinc-950 backdrop-blur">
+                  YENİ PROJE
+                </span>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue-300">
+                  Odunpazarı · 71 Evler
+                </p>
+
+                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                  WM Prime
+                </h3>
+
+                <p className="mt-3 max-w-xl text-sm leading-6 text-white/75">
+                  1+1 rezidans ve ofis seçenekleriyle Eskişehir’de topraktan
+                  yatırım fırsatını değerlendirin.
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    1+1 Rezidans
+                  </span>
+
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    Ofis
+                  </span>
+
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    Topraktan Yatırım
+                  </span>
+                </div>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="/projeler/wm-prime"
+                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    Projeyi İncele
+                  </a>
+
+                  <a
+                    href="https://wa.me/905XXXXXXXXX?text=WM%20Prime%20projesi%20hakkinda%20bilgi%20almak%20istiyorum."
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-zinc-950"
+                  >
+                    Bilgi Al
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            {/* ANKAPORT */}
+            <article className="group relative min-h-[430px] overflow-hidden rounded-[30px] bg-zinc-950 shadow-sm">
+              <img
+                src="/ankaport.jpg"
+                alt="AnkaPort Saray"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10" />
+
+              <div className="absolute left-5 top-5 z-10 flex flex-wrap gap-2">
+                <span className="rounded-full bg-blue-600 px-3 py-1.5 text-[11px] font-semibold text-white">
+                  ANKARA
+                </span>
+
+                <span className="rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-semibold text-zinc-950 backdrop-blur">
+                  KARMA YAŞAM PROJESİ
+                </span>
+              </div>
+
+              <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-8">
+                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue-300">
+                  Pursaklar · Saray
+                </p>
+
+                <h3 className="mt-3 text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                  AnkaPort Saray
+                </h3>
+
+                <p className="mt-3 max-w-xl text-sm leading-6 text-white/75">
+                  Konut, ticari alan, AVM ve otel konseptini tek projede
+                  buluşturan yeni nesil yatırım ve yaşam merkezi.
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    Konut
+                  </span>
+
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    AVM
+                  </span>
+
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    Ticari Alan
+                  </span>
+
+                  <span className="rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs text-white backdrop-blur">
+                    Otel
+                  </span>
+                </div>
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+                  <a
+                    href="/projeler/ankaport"
+                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                  >
+                    Projeyi İncele
+                  </a>
+
+                  <a
+                    href="https://wa.me/905XXXXXXXXX?text=AnkaPort%20Saray%20projesi%20hakkinda%20bilgi%20almak%20istiyorum."
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-zinc-950"
+                  >
+                    Bilgi Al
+                  </a>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-5 grid gap-3 rounded-[22px] border border-zinc-200 bg-white p-4 md:grid-cols-3 md:p-5">
+            <div className="px-3 py-2">
+              <p className="text-sm font-semibold text-zinc-950">
+                Güncel satış bilgisi
+              </p>
+              <p className="mt-1 text-xs leading-5 text-zinc-500">
+                Projelere ait güncel daire ve yatırım seçeneklerini birlikte
+                değerlendirin.
+              </p>
+            </div>
+
+            <div className="border-zinc-200 px-3 py-2 md:border-l">
+              <p className="text-sm font-semibold text-zinc-950">
+                Kişisel yatırım analizi
+              </p>
+              <p className="mt-1 text-xs leading-5 text-zinc-500">
+                Bütçenize ve yatırım hedefinize uygun seçenekleri karşılaştırın.
+              </p>
+            </div>
+
+            <div className="border-zinc-200 px-3 py-2 md:border-l">
+              <p className="text-sm font-semibold text-zinc-950">
+                Bilal Başol ile doğrudan iletişim
+              </p>
+              <p className="mt-1 text-xs leading-5 text-zinc-500">
+                Proje detayları, ödeme planı ve uygun seçenekler için hızlıca
+                bilgi alın.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* PORTFÖYLER + DETAYLI ARAMA */}
       <section
         id="portfoyler"
