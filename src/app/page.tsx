@@ -977,11 +977,7 @@ lg:text-[68px]
         <div className="mx-auto max-w-[1500px]">
           <div className="mb-7 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.32em] text-blue-600">
-                Öne Çıkan Projeler
-              </p>
-
-              <h2 className="mt-2 max-w-3xl text-2xl font-semibold tracking-tight text-zinc-950 md:text-4xl">
+              <h2 className="project-wave mt-2 max-w-3xl text-2xl font-semibold tracking-tight md:text-4xl">
                 Öne Çıkan Projeler
               </h2>
 
@@ -993,7 +989,8 @@ lg:text-[68px]
             </div>
 
             <a
-              href="tel:+905XXXXXXXXX"
+              type="button"
+              onClick={() => setIsContactOpen(true)}
               className="inline-flex w-fit items-center justify-center rounded-full border border-zinc-300 bg-white px-5 py-3 text-sm font-semibold text-zinc-900 transition hover:border-blue-600 hover:text-blue-600"
             >
               Projeler hakkında bilgi al
@@ -1002,7 +999,14 @@ lg:text-[68px]
 
           <div className="grid gap-5 lg:grid-cols-2">
             {/* WM PRIME */}
-            <article className="group relative min-h-[430px] overflow-hidden rounded-[30px] bg-zinc-950 shadow-sm">
+            <article className="project-card-glow group relative min-h-[430px] overflow-hidden rounded-[30px] bg-zinc-950 shadow-sm">
+              <a
+                href="https://www.wmproje.com/topraktan-projelerimiz/wm-prime/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="WM Prime projesini incele"
+                className="absolute inset-0 z-10"
+              />
               <img
                 src="/wm-prime.jpg"
                 alt="WM Prime Eskişehir"
@@ -1013,7 +1017,7 @@ lg:text-[68px]
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10" />
 
-              <div className="absolute left-5 top-5 z-10 flex flex-wrap gap-2">
+              <div className="pointer-events-none absolute left-5 top-5 z-20 flex flex-wrap gap-2">
                 <span className="rounded-full bg-blue-600 px-3 py-1.5 text-[11px] font-semibold text-white">
                   ESKİŞEHİR
                 </span>
@@ -1023,7 +1027,7 @@ lg:text-[68px]
                 </span>
               </div>
 
-              <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-8">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 p-6 md:p-8">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue-300">
                   Odunpazarı · 71 Evler
                 </p>
@@ -1053,26 +1057,34 @@ lg:text-[68px]
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <a
-                    href="/projeler/wm-prime"
-                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                    href="https://www.wmproje.com/topraktan-projelerimiz/wm-prime/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="pointer-events-auto relative z-30 inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
                   >
                     Projeyi İncele
                   </a>
 
-                  <a
-                    href="https://wa.me/905XXXXXXXXX?text=WM%20Prime%20projesi%20hakkinda%20bilgi%20almak%20istiyorum."
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-zinc-950"
+                  <button
+                    type="button"
+                    onClick={() => setIsContactOpen(true)}
+                    className="pointer-events-auto relative z-30 inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-zinc-950"
                   >
                     Bilgi Al
-                  </a>
+                  </button>
                 </div>
               </div>
             </article>
 
             {/* ANKAPORT */}
-            <article className="group relative min-h-[430px] overflow-hidden rounded-[30px] bg-zinc-950 shadow-sm">
+            <article className="project-card-glow group relative min-h-[430px] overflow-hidden rounded-[30px] bg-zinc-950 shadow-sm">
+              <a
+                href="https://www.ankaportsaray.com/landing/konut"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="AnkaPort Saray projesini incele"
+                className="absolute inset-0 z-10"
+              />
               <img
                 src="/ankaport.jpg"
                 alt="AnkaPort Saray"
@@ -1083,7 +1095,7 @@ lg:text-[68px]
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10" />
 
-              <div className="absolute left-5 top-5 z-10 flex flex-wrap gap-2">
+              <div className="pointer-events-none absolute left-5 top-5 z-20 flex flex-wrap gap-2">
                 <span className="rounded-full bg-blue-600 px-3 py-1.5 text-[11px] font-semibold text-white">
                   ANKARA
                 </span>
@@ -1093,7 +1105,7 @@ lg:text-[68px]
                 </span>
               </div>
 
-              <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-8">
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 p-6 md:p-8">
                 <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue-300">
                   Pursaklar · Saray
                 </p>
@@ -1127,20 +1139,21 @@ lg:text-[68px]
 
                 <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <a
-                    href="/projeler/ankaport"
-                    className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+                    href="https://www.ankaportsaray.com/landing/konut"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="pointer-events-auto relative z-30 inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
                   >
                     Projeyi İncele
                   </a>
 
-                  <a
-                    href="https://wa.me/905XXXXXXXXX?text=AnkaPort%20Saray%20projesi%20hakkinda%20bilgi%20almak%20istiyorum."
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-zinc-950"
+                  <button
+                    type="button"
+                    onClick={() => setIsContactOpen(true)}
+                    className="pointer-events-auto relative z-30 inline-flex items-center justify-center rounded-xl border border-white/30 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white hover:text-zinc-950"
                   >
                     Bilgi Al
-                  </a>
+                  </button>
                 </div>
               </div>
             </article>
