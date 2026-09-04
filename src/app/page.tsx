@@ -2,7 +2,8 @@
 import { authClient } from "@/lib/auth-client";
 import Footer from "@/components/Footer";
 import ContactModal from "@/components/ContactModal";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { FaInstagram, FaYoutube, FaFacebookF } from "react-icons/fa";
 import { getPropertyOverride } from "@/lib/property-overrides";
 import type { Property } from "@/data/properties";
@@ -93,11 +94,12 @@ function getYouTubeVideoId(url: string) {
   }
 }
 
-export default function Home() {
+function HomeContent() {
+  const searchParams = useSearchParams();
+
   const [propertyOverrides, setPropertyOverrides] = useState<
     PropertyOverride[]
   >([]);
-
   useEffect(() => {
     async function loadPropertyOverrides() {
       try {
@@ -218,6 +220,70 @@ export default function Home() {
     useState<LatestYouTubeVideo | null>(null);
 
   const [youtubeLoading, setYoutubeLoading] = useState(true);
+
+  useEffect(() => {
+    const category = searchParams.get("category");
+    const propertyType = searchParams.get("propertyType");
+    const resetPrice = searchParams.get("resetPrice");
+
+    if (!category && !propertyType) {
+      return;
+    }
+
+    // Portföyler henüz API'den gelmediyse bekle
+    if (propertiesLoading) {
+      return;
+    }
+
+    const nextCategory = category ?? "Hepsi";
+    const nextPropertyType = propertyType ?? "Tümü";
+
+    // FİLTRE KUTULARINI GÜNCELLE
+    setSelectedCategory(nextCategory);
+    setSelectedPropertyType(nextPropertyType);
+
+    // FİYATLARI TEMİZLE
+    if (resetPrice === "1") {
+      setMinPrice("");
+      setMaxPrice("");
+      setMinPriceInput("");
+      setMaxPriceInput("");
+    }
+
+    // FOOTER SEÇİMİNE GÖRE OTOMATİK FİLTRELE
+    const filtered = properties.filter((property) => {
+      // İLAN TÜRÜ
+      const categoryMatches =
+        nextCategory === "Hepsi" ? true : property.category === nextCategory;
+
+      // GAYRİMENKUL TİPİ
+      const propertyTypeMatches =
+        nextPropertyType === "Tümü"
+          ? true
+          : property.propertyType === nextPropertyType;
+
+      return categoryMatches && propertyTypeMatches;
+    });
+
+    setSearchResults(filtered);
+    setHasSearched(true);
+    setCurrentPage(1);
+
+    // PORTFÖYLER BÖLÜMÜNE GİT
+    window.setTimeout(() => {
+      const element = document.getElementById("portfoyler");
+
+      if (!element) return;
+
+      const targetPosition =
+        element.getBoundingClientRect().top + window.scrollY - 20;
+
+      window.scrollTo({
+        top: targetPosition,
+        behavior: "smooth",
+      });
+    }, 150);
+  }, [searchParams, properties, propertiesLoading]);
 
   const scrollToPortfolioTop = () => {
     window.setTimeout(() => {
@@ -652,10 +718,10 @@ export default function Home() {
               <h1
                 className="
             max-w-[700px]
-text-[39px]
-sm:text-5xl
-md:text-6xl
-lg:text-[68px]
+            text-[39px]
+              sm:text-5xl
+              md:text-6xl
+              lg:text-[68px]
             font-semibold
             leading-[1.02]
             tracking-[-0.035em]
@@ -1866,5 +1932,13 @@ lg:text-[68px]
 
       <Footer />
     </main>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={null}>
+      <HomeContent />
+    </Suspense>
   );
 }

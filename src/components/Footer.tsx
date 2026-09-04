@@ -53,11 +53,69 @@ export default function Footer() {
               <h3 className="font-semibold text-zinc-950">Hizmetler</h3>
 
               <div className="mt-4 flex flex-col gap-3 text-sm text-zinc-500">
-                <span>Satılık Gayrimenkuller</span>
-                <span>Kiralık Gayrimenkuller</span>
-                <span>Ticari Gayrimenkul</span>
-                <span>Arsa</span>
-                <span>Yatırım Danışmanlığı</span>
+                {/* SATILIK */}
+                <Link
+                  href={{
+                    pathname: "/",
+                    query: {
+                      category: "Satılık",
+                      propertyType: "Tümü",
+                      resetPrice: "1",
+                    },
+                    hash: "portfoyler",
+                  }}
+                  className="transition hover:text-blue-600"
+                >
+                  Satılık Gayrimenkuller
+                </Link>
+
+                {/* KİRALIK */}
+                <Link
+                  href={{
+                    pathname: "/",
+                    query: {
+                      category: "Kiralık",
+                      propertyType: "Tümü",
+                      resetPrice: "1",
+                    },
+                    hash: "portfoyler",
+                  }}
+                  className="transition hover:text-blue-600"
+                >
+                  Kiralık Gayrimenkuller
+                </Link>
+
+                {/* TİCARİ */}
+                <Link
+                  href={{
+                    pathname: "/",
+                    query: {
+                      category: "Hepsi",
+                      propertyType: "Ticari",
+                      resetPrice: "1",
+                    },
+                    hash: "portfoyler",
+                  }}
+                  className="transition hover:text-blue-600"
+                >
+                  Ticari Gayrimenkul
+                </Link>
+
+                {/* ARSA */}
+                <Link
+                  href={{
+                    pathname: "/",
+                    query: {
+                      category: "Hepsi",
+                      propertyType: "Arsa",
+                      resetPrice: "1",
+                    },
+                    hash: "portfoyler",
+                  }}
+                  className="transition hover:text-blue-600"
+                >
+                  Arsa
+                </Link>
               </div>
             </div>
 
