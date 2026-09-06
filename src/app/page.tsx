@@ -1784,7 +1784,7 @@ function HomeContent() {
                 </p>
 
                 <a
-                  href="INSTAGRAM_LINKI_BURAYA"
+                  href="https://www.instagram.com/bilalbasol.kw/"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-flex items-center gap-1 text-[8px] font-semibold leading-3 transition hover:text-blue-600 lg:mt-auto lg:gap-2 lg:pt-6 lg:text-base"
@@ -1911,7 +1911,7 @@ function HomeContent() {
                 </p>
 
                 <a
-                  href="FACEBOOK_LINKI_BURAYA"
+                  href="https://www.facebook.com/bilalbasol.kw/"
                   target="_blank"
                   rel="noreferrer"
                   className="mt-2 inline-flex items-center gap-1 text-[8px] font-semibold leading-3 transition hover:text-blue-600 lg:mt-auto lg:gap-2 lg:pt-6 lg:text-base"
