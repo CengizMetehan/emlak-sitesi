@@ -659,9 +659,14 @@ function HomeContent() {
           }
           className="flex h-[58px] w-[58px] items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.16)] transition duration-300 hover:scale-105 hover:shadow-[0_10px_28px_rgba(0,0,0,0.20)]"
         >
-          <img
+          <Image
             src="/bilal-basol-imza.png"
             alt="Bilal Başol"
+            width={48}
+            height={48}
+            sizes="48px"
+            quality={55}
+            loading="lazy"
             className="h-[48px] w-[48px] object-contain"
           />
         </button>
@@ -893,28 +898,38 @@ function HomeContent() {
 
               <div className="absolute bottom-0 right-[100%] h-[78%] w-[72%] rounded-full bg-white/30 blur-3xl" />
 
-              <img
+              <Image
                 src="/bilal-basol.png"
                 alt="Bilal Başol Gayrimenkul Danışmanı"
+                width={520}
+                height={550}
+                sizes="(max-width: 1024px) 420px, 520px"
+                quality={70}
+                loading="eager"
                 className="
-      absolute
-      bottom-[-20px]
-      right-[-50px]
-      h-[550px]
-      w-auto
-      max-w-none
-      object-contain
-      object-bottom
-      drop-shadow-[0_22px_28px_rgba(0,0,0,0.18)]
-    "
+    absolute
+    bottom-[-20px]
+    right-[-50px]
+    h-[550px]
+    w-auto
+    max-w-none
+    object-contain
+    object-bottom
+    drop-shadow-[0_22px_28px_rgba(0,0,0,0.18)]
+  "
               />
             </div>
 
             {/* TABLET PORTRE */}
             <div className="pointer-events-none absolute bottom-0 right-[-55px] z-10 hidden md:block lg:hidden">
-              <img
+              <Image
                 src="/bilal-basol.png"
                 alt=""
+                width={360}
+                height={380}
+                sizes="(max-width: 1024px) 280px, 360px"
+                quality={65}
+                loading="lazy"
                 className="max-h-[380px] w-auto object-contain object-bottom opacity-90"
               />
             </div>
@@ -1684,12 +1699,15 @@ function HomeContent() {
 
             {/* SAĞ GÖRSEL */}
             <div className="relative min-h-[420px] overflow-hidden bg-zinc-100 lg:min-h-full">
-              <img
+              <Image
                 src="/nearadiginiz.png"
                 alt="Bilal Başol gayrimenkul danışmanlığı"
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={65}
+                loading="lazy"
+                className="object-cover"
               />
-
               {/* GÖRSELİ HAFİF YUMUŞATAN KATMAN */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
 
@@ -1754,10 +1772,14 @@ function HomeContent() {
             {/* INSTAGRAM */}
             <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
               <div className="relative h-full overflow-hidden lg:h-80">
-                <img
+                <Image
                   src="/hero-emlak.jpg"
                   alt="Bilal Başol Instagram paylaşımı"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 1024px) 115px, 33vw"
+                  quality={65}
+                  loading="lazy"
+                  className="object-cover transition duration-700 group-hover:scale-105"
                 />
 
                 <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
@@ -1801,13 +1823,17 @@ function HomeContent() {
                   </div>
                 ) : !youtubePlaying ? (
                   <>
-                    <img
+                    <Image
                       src={latestYouTubeVideo?.thumbnail ?? "/hero-emlak.jpg"}
                       alt={
                         latestYouTubeVideo?.title ??
                         "Bilal Başol YouTube videosu"
                       }
-                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 1024px) 115px, 33vw"
+                      quality={65}
+                      loading="lazy"
+                      className="object-cover transition duration-700 group-hover:scale-105"
                     />
 
                     <div className="absolute inset-0 bg-black/10 transition group-hover:bg-black/20" />
@@ -1839,10 +1865,14 @@ function HomeContent() {
                     allowFullScreen
                   />
                 ) : (
-                  <img
+                  <Image
                     src="/hero-emlak.jpg"
                     alt="YouTube videosu"
-                    className="h-full w-full object-cover"
+                    fill
+                    sizes="(max-width: 1024px) 115px, 33vw"
+                    quality={65}
+                    loading="lazy"
+                    className="object-cover"
                   />
                 )}
               </div>
@@ -1878,10 +1908,14 @@ function HomeContent() {
             {/* FACEBOOK */}
             <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
               <div className="relative h-full overflow-hidden lg:h-80">
-                <img
+                <Image
                   src="/hero-emlak.jpg"
                   alt="Bilal Başol Facebook paylaşımı"
-                  className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 1024px) 115px, 33vw"
+                  quality={65}
+                  loading="lazy"
+                  className="object-cover transition duration-700 group-hover:scale-105"
                 />
 
                 <div className="absolute left-2 top-2 flex items-center gap-1 rounded-full bg-white/95 px-2 py-1 text-[8px] font-semibold text-zinc-950 shadow-lg backdrop-blur-sm lg:left-5 lg:top-5 lg:gap-2 lg:px-4 lg:py-2 lg:text-xs">
