@@ -672,19 +672,25 @@ function HomeContent() {
         {/* HERO ANA ALAN */}
         <div className="relative min-h-[500px] overflow-hidden lg:min-h-[560px]">
           {/* ARKA PLAN GÖRSELİ */}
-          <div
-            className="
-    absolute inset-0
-    bg-cover
-    bg-[78%_center]
-    sm:bg-[74%_center]
-    md:bg-[70%_center]
-    lg:bg-center
-  "
-            style={{
-              backgroundImage: "url('/arkaplan.png')",
-            }}
-          />
+          {/* ARKA PLAN GÖRSELİ - LCP OPTİMİZE */}
+          <div className="absolute inset-0">
+            <Image
+              src="/arkaplan.png"
+              alt=""
+              fill
+              priority
+              fetchPriority="high"
+              quality={70}
+              sizes="100vw"
+              className="
+      object-cover
+      object-[78%_center]
+      sm:object-[74%_center]
+      md:object-[70%_center]
+      lg:object-center
+    "
+            />
+          </div>
 
           {/* GENEL YUMUŞATMA */}
           <div className="absolute inset-0 bg-white/10" />
