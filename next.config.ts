@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -16,7 +17,6 @@ const nextConfig: NextConfig = {
         hostname: "img.youtube.com",
       },
     ],
-    qualities: [55, 65, 70, 75, 82, 88],
   },
 };
 
