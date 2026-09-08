@@ -1083,14 +1083,15 @@ function HomeContent() {
                 aria-label="WM Prime projesini incele"
                 className="absolute inset-0 z-10"
               />
-              <img
+              <Image
                 src="/wm-prime.jpg"
                 alt="WM Prime Eskişehir"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={65}
                 loading="lazy"
-                decoding="async"
-                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                className="object-cover transition duration-700 group-hover:scale-105"
               />
-
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10" />
 
               <div className="pointer-events-none absolute left-5 top-5 z-20 flex flex-wrap gap-2">
@@ -1161,12 +1162,14 @@ function HomeContent() {
                 aria-label="AnkaPort Saray projesini incele"
                 className="absolute inset-0 z-10"
               />
-              <img
+              <Image
                 src="/ankaport.jpg"
                 alt="AnkaPort Saray"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={65}
                 loading="lazy"
-                decoding="async"
-                className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                className="object-cover transition duration-700 group-hover:scale-105"
               />
 
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/45 to-black/10" />
