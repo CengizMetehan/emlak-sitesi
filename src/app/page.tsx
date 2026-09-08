@@ -538,7 +538,7 @@ function HomeContent() {
 
   //const youtubeThumbnail = youtubeVideoId
   //  ? `https://img.youtube.com/vi/${youtubeVideoId}/maxresdefault.jpg`
-  //  : "/hero-emlak.jpg";
+  //  : "/hero-emlak.webp";
 
   const [youtubePlaying, setYoutubePlaying] = useState(false);
 
@@ -660,7 +660,7 @@ function HomeContent() {
           className="flex h-[58px] w-[58px] items-center justify-center overflow-hidden rounded-full border border-zinc-200 bg-white shadow-[0_8px_24px_rgba(0,0,0,0.16)] transition duration-300 hover:scale-105 hover:shadow-[0_10px_28px_rgba(0,0,0,0.20)]"
         >
           <Image
-            src="/bilal-basol-imza.png"
+            src="/bilal-basol-imza.webp"
             alt="Bilal Başol"
             width={48}
             height={48}
@@ -680,7 +680,7 @@ function HomeContent() {
           {/* ARKA PLAN GÖRSELİ - LCP OPTİMİZE */}
           <div className="absolute inset-0">
             <Image
-              src="/arkaplan.png"
+              src="/arkaplan.webp"
               alt=""
               fill
               priority
@@ -899,7 +899,7 @@ function HomeContent() {
               <div className="absolute bottom-0 right-[100%] h-[78%] w-[72%] rounded-full bg-white/30 blur-3xl" />
 
               <Image
-                src="/bilal-basol.png"
+                src="/bilal-basol.webp"
                 alt="Bilal Başol Gayrimenkul Danışmanı"
                 width={520}
                 height={550}
@@ -923,7 +923,7 @@ function HomeContent() {
             {/* TABLET PORTRE */}
             <div className="pointer-events-none absolute bottom-0 right-[-55px] z-10 hidden md:block lg:hidden">
               <Image
-                src="/bilal-basol.png"
+                src="/bilal-basol.webp"
                 alt=""
                 width={360}
                 height={380}
@@ -1099,7 +1099,7 @@ function HomeContent() {
                 className="absolute inset-0 z-10"
               />
               <Image
-                src="/wm-prime.jpg"
+                src="/wm-prime.webp"
                 alt="WM Prime Eskişehir"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -1178,7 +1178,7 @@ function HomeContent() {
                 className="absolute inset-0 z-10"
               />
               <Image
-                src="/ankaport.jpg"
+                src="/ankaport.webp"
                 alt="AnkaPort Saray"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -1700,7 +1700,7 @@ function HomeContent() {
             {/* SAĞ GÖRSEL */}
             <div className="relative min-h-[420px] overflow-hidden bg-zinc-100 lg:min-h-full">
               <Image
-                src="/nearadiginiz.png"
+                src="/nearadiginiz.webp"
                 alt="Bilal Başol gayrimenkul danışmanlığı"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -1773,7 +1773,7 @@ function HomeContent() {
             <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
               <div className="relative h-full overflow-hidden lg:h-80">
                 <Image
-                  src="/hero-emlak.jpg"
+                  src="/hero-emlak.webp"
                   alt="Bilal Başol Instagram paylaşımı"
                   fill
                   sizes="(max-width: 1024px) 115px, 33vw"
@@ -1824,7 +1824,7 @@ function HomeContent() {
                 ) : !youtubePlaying ? (
                   <>
                     <Image
-                      src={latestYouTubeVideo?.thumbnail ?? "/hero-emlak.jpg"}
+                      src={latestYouTubeVideo?.thumbnail ?? "/hero-emlak.webp"}
                       alt={
                         latestYouTubeVideo?.title ??
                         "Bilal Başol YouTube videosu"
@@ -1866,7 +1866,7 @@ function HomeContent() {
                   />
                 ) : (
                   <Image
-                    src="/hero-emlak.jpg"
+                    src="/hero-emlak.webp"
                     alt="YouTube videosu"
                     fill
                     sizes="(max-width: 1024px) 115px, 33vw"
@@ -1909,7 +1909,7 @@ function HomeContent() {
             <article className="group grid h-[120px] grid-cols-[115px_1fr] overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition duration-300 hover:shadow-md lg:flex lg:h-full lg:flex-col lg:rounded-3xl lg:hover:-translate-y-1 lg:hover:shadow-xl">
               <div className="relative h-full overflow-hidden lg:h-80">
                 <Image
-                  src="/hero-emlak.jpg"
+                  src="/hero-emlak.webp"
                   alt="Bilal Başol Facebook paylaşımı"
                   fill
                   sizes="(max-width: 1024px) 115px, 33vw"
