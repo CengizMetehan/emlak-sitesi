@@ -6,6 +6,7 @@ import ContactModalButton from "@/components/ContactModalButton";
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 import Image from "next/image";
+import CopyListingNumber from "@/components/CopyListingNumber";
 
 export const dynamic = "force-dynamic";
 
@@ -575,9 +576,11 @@ export default async function PropertyDetailPage({
               [&::-webkit-scrollbar-thumb:hover]:bg-blue-700"
             >
               <div className="divide-y divide-zinc-200">
-                <DetailRow
-                  label="İlan No"
-                  value={displaySahibindenNo || property.id}
+                <CopyListingNumber
+                  displayValue={
+                    displaySahibindenNo || property.id.slice(0, 8).toUpperCase()
+                  }
+                  copyValue={displaySahibindenNo || property.id}
                 />
 
                 <DetailRow label="Emlak Tipi" value={property.propertyType} />

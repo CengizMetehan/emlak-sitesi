@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import { authClient } from "@/lib/auth-client";
 import Footer from "@/components/Footer";
 import ContactModal from "@/components/ContactModal";
@@ -202,6 +203,9 @@ function HomeContent() {
   const [searchResults, setSearchResults] = useState<typeof properties>([]);
   const [hasSearched, setHasSearched] = useState(false);
   const [properties, setProperties] = useState<Property[]>([]);
+  const [failedImages, setFailedImages] = useState<Set<string>>(
+    () => new Set(),
+  );
   const [sortOption, setSortOption] = useState("default");
   const [propertiesLoading, setPropertiesLoading] = useState(true);
   const { data: session, isPending: isSessionPending } =
@@ -1464,40 +1468,31 @@ function HomeContent() {
                       >
                         <a href={`/portfoy/${property.id}`}>
                           <div className="relative h-full min-h-[125px] overflow-hidden sm:h-36 sm:min-h-0 lg:h-44">
-                            {coverImage ? (
-                              <img
+                            {coverImage && !failedImages.has(property.id) ? (
+                              <Image
                                 src={coverImage}
                                 alt={getDisplayTitle(
                                   property.id,
                                   property.title,
                                 )}
+                                fill
+                                sizes="(max-width: 640px) 115px, (max-width: 1024px) 33vw, (max-width: 1280px) 33vw, 20vw"
+                                quality={65}
                                 loading="lazy"
-                                decoding="async"
-                                fetchPriority="low"
-                                className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                                onError={(e) => {
-                                  const image = e.currentTarget;
-
-                                  image.style.display = "none";
-
-                                  const fallback =
-                                    image.nextElementSibling as HTMLElement | null;
-
-                                  if (fallback) {
-                                    fallback.style.display = "flex";
-                                  }
+                                className="object-cover transition duration-500 group-hover:scale-105"
+                                onError={() => {
+                                  setFailedImages((previous) => {
+                                    const next = new Set(previous);
+                                    next.add(property.id);
+                                    return next;
+                                  });
                                 }}
                               />
-                            ) : null}
-
-                            <div
-                              className="hidden h-full items-center justify-center bg-zinc-100 px-4 text-center text-xs text-zinc-400"
-                              style={{
-                                display: coverImage ? "none" : "flex",
-                              }}
-                            >
-                              Görsel yakında
-                            </div>
+                            ) : (
+                              <div className="flex h-full items-center justify-center bg-zinc-100 px-4 text-center text-xs text-zinc-400">
+                                görsel yüklenemedi
+                              </div>
+                            )}
 
                             <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[10px] font-semibold shadow-sm">
                               {property.category}
@@ -1743,13 +1738,6 @@ function HomeContent() {
                 fırsatları ve saha çalışmalarından güncel içerikleri takip edin.
               </p>
             </div>
-
-            <a
-              href="#"
-              className="text-sm font-semibold underline decoration-zinc-300 underline-offset-8 transition hover:decoration-black"
-            >
-              Tüm paylaşımları görüntüle
-            </a>
           </div>
 
           {/* SOSYAL MEDYA KARTLARI */}
