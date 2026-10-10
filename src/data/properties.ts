@@ -47,4 +47,21 @@ export type Property = {
   featured: boolean;
 };
 
+export type PropertySummary = Pick<
+  Property,
+  | "id"
+  | "sahibindenId"
+  | "title"
+  | "category"
+  | "propertyType"
+  | "city"
+  | "district"
+  | "neighborhood"
+  | "price"
+  | "priceText"
+  | "rooms"
+  | "grossArea"
+  | "image"
+>;
+
 export { properties } from "./properties.generated";

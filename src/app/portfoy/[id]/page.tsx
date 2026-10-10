@@ -1,5 +1,10 @@
 import PropertyGallery from "../../../components/PropertyGallery";
-import { getProperties, getPropertyById } from "@/lib/properties-db";
+import PropertyImagePlaceholder from "@/components/PropertyImagePlaceholder";
+import {
+  getFeaturedPropertySummaries,
+  getLocalPropertyImage,
+  getPropertyById,
+} from "@/lib/properties-db";
 import { getPropertyOverride } from "@/lib/property-overrides";
 import { notFound } from "next/navigation";
 import ContactModalButton from "@/components/ContactModalButton";
@@ -113,19 +118,16 @@ export default async function PropertyDetailPage({
     notFound();
   }
 
-  const allProperties = await getProperties();
-
-  const featuredProperties = allProperties
-    .filter((item) => item.featured && item.id !== property.id)
-    .slice(0, 3);
-
-  const override = await getPropertyOverride(id);
+  const [featuredProperties, override] = await Promise.all([
+    getFeaturedPropertySummaries(property.id),
+    getPropertyOverride(id),
+  ]);
 
   const displayTitle = override?.title ?? property.title;
   const displayPriceText = override?.price_text ?? property.priceText;
   const displayDescription = override?.description ?? property.description;
 
-  const displayCoverImage = override?.cover_image ?? property.image;
+  const displayCoverImage = override?.cover_image || property.image;
 
   const displaySahibindenNo = override?.sahibinden_no ?? "";
   // GALERİ SIRALAMASI
@@ -167,6 +169,9 @@ export default async function PropertyDetailPage({
       ...displayImages.filter((image) => image !== displayCoverImage),
     ];
   }
+
+  displayImages = displayImages.map(getLocalPropertyImage);
+  const galleryCoverImage = getLocalPropertyImage(displayCoverImage);
 
   const featureEntries = Object.entries(property.features).filter(
     ([, value]) => value !== null && value !== "" && value !== "false",
@@ -318,7 +323,7 @@ export default async function PropertyDetailPage({
               <PropertyGallery
                 images={displayImages}
                 title={displayTitle}
-                initialImage={displayCoverImage}
+                initialImage={galleryCoverImage}
                 sahibindenUrl={sahibindenUrl}
               />
             </div>
@@ -670,9 +675,10 @@ export default async function PropertyDetailPage({
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <div className="flex h-full min-h-[145px] items-center justify-center px-3 text-center text-xs text-zinc-400">
-                        Görsel yakında
-                      </div>
+                      <PropertyImagePlaceholder
+                        className="h-full min-h-[145px] w-full"
+                        label="Portföy görseli"
+                      />
                     )}
 
                     <span className="absolute left-2.5 top-2.5 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-semibold text-zinc-950 shadow-sm">

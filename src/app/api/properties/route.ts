@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
-import { getProperties } from "@/lib/properties-db";
+import { getPropertySummaries } from "@/lib/properties-db";
 
 export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const properties = await getProperties();
+    const properties = await getPropertySummaries();
 
     return NextResponse.json(properties);
   } catch (error) {

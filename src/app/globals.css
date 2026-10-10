@@ -175,3 +175,269 @@ body {
     --project-border-angle: 360deg;
   }
 }
+
+/* Bilal Başol homepage: cinematic, low-motion first impression. */
+.bb-site-header {
+  position: sticky;
+  top: 0;
+  border-color: rgba(21, 31, 40, 0.08);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.035);
+}
+
+.bb-brand-lockup > div:first-child {
+  color: #17232d;
+  letter-spacing: 0.16em;
+}
+
+.bb-brand-lockup > div:last-child {
+  letter-spacing: 0.32em;
+}
+
+.bb-hero-stage {
+  isolation: isolate;
+  background: #17232d;
+}
+
+.bb-hero-image img {
+  transform: scale(1.015);
+}
+
+.bb-hero-scrim {
+  background: linear-gradient(
+    100deg,
+    rgba(14, 22, 29, 0.93) 0%,
+    rgba(14, 22, 29, 0.83) 39%,
+    rgba(14, 22, 29, 0.49) 67%,
+    rgba(14, 22, 29, 0.16) 100%
+  );
+}
+
+.bb-hero-gradient {
+  background:
+    radial-gradient(ellipse at 70% 45%, transparent 0%, rgba(13, 20, 27, 0.06) 55%, rgba(13, 20, 27, 0.3) 100%),
+    linear-gradient(90deg, rgba(12, 19, 26, 0.28), transparent 78%);
+}
+
+.bb-hero-bottom {
+  background: linear-gradient(0deg, #f3f0ea 0%, rgba(243, 240, 234, 0.66) 22%, transparent 100%);
+}
+
+.bb-hero-copy > div:first-child,
+.bb-hero-title,
+.bb-hero-lede,
+.bb-hero-search {
+  animation: bb-rise-in 650ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.bb-hero-title {
+  animation-delay: 70ms;
+}
+
+.bb-hero-marker {
+  background-color: #c6a477;
+  box-shadow: 0 0 0 5px rgba(198, 164, 119, 0.14);
+}
+
+.bb-hero-copy > div:first-child p {
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.27em;
+}
+
+.bb-hero-title {
+  color: #fffaf2;
+  font-weight: 550;
+  letter-spacing: -0.055em;
+  text-wrap: balance;
+}
+
+.bb-hero-title-accent {
+  color: #d9c3a3;
+}
+
+.bb-hero-lede {
+  color: rgba(255, 250, 242, 0.76);
+  max-width: 540px;
+  animation-delay: 130ms;
+}
+
+.bb-hero-search {
+  animation-delay: 190ms;
+}
+
+.bb-search-card {
+  border-color: rgba(255, 255, 255, 0.62);
+  border-radius: 18px;
+  box-shadow: 0 22px 52px rgba(3, 10, 16, 0.22);
+}
+
+.bb-search-card > div:not(:last-child) {
+  border-color: #e8e5df;
+}
+
+.bb-search-submit {
+  background-color: #1d4ed8;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(29, 78, 216, 0.18);
+}
+
+.bb-hero-advisor {
+  animation: bb-portrait-arrive 820ms 100ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.bb-hero-halo {
+  background: rgba(214, 190, 157, 0.15);
+}
+
+.bb-hero-portrait {
+  filter: drop-shadow(0 24px 38px rgba(3, 10, 16, 0.3));
+}
+
+.bb-trust-panel {
+  border-color: rgba(21, 31, 40, 0.1);
+  border-radius: 22px;
+  box-shadow: 0 18px 46px rgba(21, 31, 40, 0.08);
+}
+
+.bb-trust-item {
+  transition: background-color 180ms ease;
+}
+
+.bb-trust-item:hover {
+  background-color: #fbfaf7;
+}
+
+@keyframes bb-rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bb-portrait-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Keep featured project styling still and inexpensive to paint. */
+.project-wave {
+  animation: none;
+  filter: none;
+}
+
+.project-card-glow::before {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(198, 164, 119, 0.5),
+    rgba(37, 99, 235, 0.2)
+  );
+  filter: none;
+  animation: none;
+}
+
+.project-card-glow::after {
+  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.16), 0 10px 30px rgba(21, 31, 40, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb-hero-copy > div:first-child,
+  .bb-hero-title,
+  .bb-hero-lede,
+  .bb-hero-search,
+  .bb-hero-advisor,
+  .bb-trust-item {
+    animation: none;
+    transition: none;
+  }
+
+  .project-card-glow::before,
+  .project-card-glow::after {
+    animation: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1399px) {
+  .bb-search-card {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 0.9fr) minmax(0, 0.9fr) auto;
+  }
+
+  .bb-search-card > div:not(:last-child) {
+    min-width: 0;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .bb-search-card input,
+  .bb-search-card select {
+    min-width: 0;
+    font-size: 13px;
+  }
+
+  .bb-search-submit {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media (max-width: 767px) {
+  .bb-hero-stage {
+    min-height: 560px;
+  }
+
+  .bb-hero-scrim {
+    background: linear-gradient(
+      100deg,
+      rgba(14, 22, 29, 0.86) 0%,
+      rgba(14, 22, 29, 0.68) 72%,
+      rgba(14, 22, 29, 0.48) 100%
+    );
+  }
+
+  .bb-hero-copy {
+    padding-bottom: 130px;
+  }
+
+  .bb-hero-title {
+    max-width: 560px;
+    font-size: clamp(2.6rem, 10vw, 4rem);
+    line-height: 0.99;
+  }
+
+  .bb-hero-copy > div:first-child p {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+  }
+
+  .bb-brand-lockup > div:first-child {
+    white-space: nowrap;
+    font-size: 20px;
+    letter-spacing: 0.12em;
+  }
+
+  .bb-brand-lockup > div:last-child {
+    white-space: nowrap;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+  }
+
+  .bb-hero-lede {
+    max-width: 420px;
+    color: rgba(255, 250, 242, 0.82);
+  }
+
+  .bb-trust-wrap {
+    margin-top: -72px;
+  }
+}

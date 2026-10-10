@@ -2,6 +2,7 @@
 
 import { useRef, useState, type TouchEvent } from "react";
 import Image from "next/image";
+import PropertyImagePlaceholder from "@/components/PropertyImagePlaceholder";
 
 type PropertyGalleryProps = {
   images: string[];
@@ -21,6 +22,7 @@ export default function PropertyGallery({
   const [activeIndex, setActiveIndex] = useState(
     initialIndex >= 0 ? initialIndex : 0,
   );
+  const [loadedImage, setLoadedImage] = useState<string | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -311,19 +313,19 @@ export default function PropertyGallery({
 
   if (images.length === 0) {
     return (
-      <div className="flex h-[360px] flex-col items-center justify-center rounded-2xl border border-zinc-200 bg-white px-6 text-center shadow-sm">
-        <p className="text-base text-zinc-500">
-          Bu portföy için görsel bulunamadı.
-        </p>
-
+      <div className="relative h-[300px] w-full overflow-hidden rounded-2xl border border-zinc-200 shadow-sm md:h-[380px] xl:h-[530px]">
+        <PropertyImagePlaceholder
+          className="absolute inset-0"
+          label="Portföy fotoğraf alanı"
+        />
         {sahibindenUrl && (
           <a
             href={sahibindenUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 text-base text-blue-600 underline decoration-blue-300 underline-offset-4 transition hover:text-blue-700 hover:decoration-blue-700"
+            className="absolute bottom-4 left-4 rounded-full border border-white/80 bg-white/80 px-3 py-2 text-xs font-medium text-zinc-600 backdrop-blur-sm transition hover:bg-white hover:text-blue-700"
           >
-            Sahibinden&apos;de görüntülemek için buraya tıklayın
+            Sahibinden&apos;de görüntüle ↗
           </a>
         )}
       </div>
@@ -349,17 +351,26 @@ export default function PropertyGallery({
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
         >
+          {loadedImage !== images[activeIndex] && (
+            <PropertyImagePlaceholder
+              className="absolute inset-0 z-[1]"
+              label={`${title} fotoğraf alanı`}
+            />
+          )}
           <Image
             src={images[activeIndex]}
             alt={`${title} - ${activeIndex + 1}`}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 850px"
-            priority={activeIndex === 0}
             loading={activeIndex === 0 ? "eager" : "lazy"}
             fetchPriority={activeIndex === 0 ? "high" : "auto"}
             quality={82}
+            unoptimized={images[activeIndex]?.startsWith("http")}
+            onLoad={() => {
+              setLoadedImage(images[activeIndex]);
+            }}
             draggable={false}
-            className="select-none object-cover transition duration-500 group-hover:scale-[1.015]"
+            className={`select-none object-cover transition-[opacity,transform] duration-300 group-hover:scale-[1.015] ${loadedImage === images[activeIndex] ? "opacity-100" : "opacity-0"}`}
           />
 
           {/* SOL OK */}
@@ -430,6 +441,7 @@ export default function PropertyGallery({
                   sizes="104px"
                   loading="lazy"
                   quality={55}
+                  unoptimized={image.startsWith("http")}
                   draggable={false}
                   className="h-[64px] w-[92px] select-none object-cover md:h-[70px] md:w-[104px]"
                 />
