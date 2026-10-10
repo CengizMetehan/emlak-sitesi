@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import JSZip from "jszip";
 import { getProperties } from "@/lib/properties-db";
 
 export const runtime = "nodejs";
@@ -177,14 +176,20 @@ function addChange(
 
 export async function POST(request: Request) {
   try {
-    const formData = await request.formData();
+    const payload = (await request.json()) as {
+      fileName?: unknown;
+      fileSize?: unknown;
+      totalFiles?: unknown;
+      jsonFileCount?: unknown;
+      imageFileNames?: unknown;
+      ilanBilgileriFile?: unknown;
+      listings?: unknown;
+    };
 
-    const file = formData.get("file");
-
-    if (!(file instanceof File)) {
+    if (typeof payload.fileName !== "string" || !payload.fileName.toLowerCase().endsWith(".zip")) {
       return NextResponse.json(
         {
-          error: "ZIP dosyası bulunamadı.",
+          error: "Geçerli bir ZIP dosyası seçin.",
         },
         {
           status: 400,
@@ -192,10 +197,10 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!file.name.toLowerCase().endsWith(".zip")) {
+    if (!Array.isArray(payload.listings)) {
       return NextResponse.json(
         {
-          error: "Lütfen bir ZIP dosyası seçin.",
+          error: 'ZIP içerisinde geçerli bir "İlan Listesi" bulunamadı.',
         },
         {
           status: 400,
@@ -203,30 +208,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const arrayBuffer = await file.arrayBuffer();
-
-    const zip = await JSZip.loadAsync(arrayBuffer);
-
-    const fileNames = Object.keys(zip.files).filter(
-      (name) => !zip.files[name].dir,
-    );
-
-    const jsonFiles = fileNames.filter((name) =>
-      name.toLowerCase().endsWith(".json"),
-    );
-
-    const imageFiles = fileNames.filter((name) =>
-      /\.(jpg|jpeg|png|webp|gif)$/i.test(name),
-    );
-
-    const ilanBilgileriFiles = jsonFiles.filter((name) =>
-      name.toLocaleLowerCase("tr-TR").includes("ilanbilgileri"),
-    );
-
-    if (ilanBilgileriFiles.length === 0) {
+    if (typeof payload.ilanBilgileriFile !== "string") {
       return NextResponse.json(
         {
-          error: "ZIP içerisinde ilanBilgileri JSON dosyası bulunamadı.",
+          error: "İlan bilgileri JSON dosyası bulunamadı.",
         },
         {
           status: 400,
@@ -234,61 +219,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const listingFile = zip.files[ilanBilgileriFiles[0]];
-
-    if (!listingFile) {
-      return NextResponse.json(
-        {
-          error: "İlan bilgileri dosyası okunamadı.",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    const content = await listingFile.async("string");
-
-    let parsed: unknown;
-
-    try {
-      parsed = JSON.parse(content);
-    } catch {
-      return NextResponse.json(
-        {
-          error: "İlan bilgileri JSON dosyası geçerli değil.",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      return NextResponse.json(
-        {
-          error: "Beklenen Sahibinden JSON yapısı bulunamadı.",
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    const ilanListesi = (parsed as Record<string, unknown>)["İlan Listesi"];
-
-    if (!Array.isArray(ilanListesi)) {
-      return NextResponse.json(
-        {
-          error: '"İlan Listesi" alanı bulunamadı.',
-        },
-        {
-          status: 400,
-        },
-      );
-    }
-
-    const sahibindenListings = ilanListesi as SahibindenListing[];
+    const sahibindenListings = payload.listings as SahibindenListing[];
+    const imageFiles = Array.isArray(payload.imageFileNames)
+      ? payload.imageFileNames.filter((name): name is string => typeof name === "string")
+      : [];
+    const totalFiles = Number.isFinite(payload.totalFiles) ? Number(payload.totalFiles) : 0;
+    const jsonFileCount = Number.isFinite(payload.jsonFileCount) ? Number(payload.jsonFileCount) : 0;
+    const fileSize = Number.isFinite(payload.fileSize) ? Number(payload.fileSize) : 0;
 
     /*
      * MEVCUT İLANLARI NEON'DAN AL
@@ -571,13 +508,13 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
 
-      fileName: file.name,
+      fileName: payload.fileName,
 
-      fileSize: file.size,
+      fileSize,
 
-      totalFiles: fileNames.length,
+      totalFiles,
 
-      jsonFileCount: jsonFiles.length,
+      jsonFileCount,
 
       imageFileCount: imageFiles.length,
 
@@ -587,7 +524,7 @@ export async function POST(request: Request) {
 
       medyaBilgileriFound: mediaAvailable,
 
-      ilanBilgileriFile: ilanBilgileriFiles[0],
+      ilanBilgileriFile: payload.ilanBilgileriFile,
 
       /*
        * KARŞILAŞTIRMA ÖZETİ

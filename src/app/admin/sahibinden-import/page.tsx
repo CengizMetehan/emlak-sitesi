@@ -112,26 +112,86 @@ export default function SahibindenImportPage() {
     setAnalysis(null);
 
     try {
-      const formData = new FormData();
-      formData.append("file", file);
+      // ZIP dosyasının tamamını API'ye göndermek 100 MB üzerindeki
+      // arşivlerde istek sınırlarına ve sunucu belleğine takılabiliyor.
+      // Tarayıcıda yalnızca ilan JSON'unu ve arşiv indeksini çıkarıyoruz.
+      const zip = await JSZip.loadAsync(file);
+      const fileNames = Object.values(zip.files)
+        .filter((entry) => !entry.dir)
+        .map((entry) => entry.name);
+      const jsonFiles = fileNames.filter((name) =>
+        name.toLowerCase().endsWith(".json"),
+      );
+      const imageFileNames = fileNames.filter((name) =>
+        /\.(jpg|jpeg|png|webp|gif)$/i.test(name),
+      );
+      const ilanBilgileriFile = jsonFiles.find((name) =>
+        name.toLocaleLowerCase("tr-TR").includes("ilanbilgileri"),
+      );
+
+      if (!ilanBilgileriFile) {
+        throw new Error("ZIP içerisinde ilanBilgileri JSON dosyası bulunamadı.");
+      }
+
+      const ilanEntry = zip.files[ilanBilgileriFile];
+      if (!ilanEntry) {
+        throw new Error("İlan bilgileri dosyası okunamadı.");
+      }
+
+      let parsed: unknown;
+      try {
+        parsed = JSON.parse(await ilanEntry.async("string"));
+      } catch {
+        throw new Error("İlan bilgileri JSON dosyası geçerli değil.");
+      }
+
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+        throw new Error("Beklenen Sahibinden JSON yapısı bulunamadı.");
+      }
+
+      const listings = (parsed as Record<string, unknown>)["İlan Listesi"];
+      if (!Array.isArray(listings)) {
+        throw new Error('"İlan Listesi" alanı bulunamadı.');
+      }
 
       const response = await fetch("/api/admin/sahibinden-analyze", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fileName: file.name,
+          fileSize: file.size,
+          totalFiles: fileNames.length,
+          jsonFileCount: jsonFiles.length,
+          imageFileNames,
+          ilanBilgileriFile,
+          listings,
+        }),
       });
 
-      const data = await response.json();
+      const responseText = await response.text();
+      let data: { error?: string } & Record<string, unknown>;
+      try {
+        data = JSON.parse(responseText) as { error?: string } & Record<string, unknown>;
+      } catch {
+        throw new Error(
+          `Analiz servisi yanıtı okunamadı (HTTP ${response.status}). ZIP aktarımı yerine yalnızca ilan verisi gönderildi; sunucu yanıtını kontrol edin.`,
+        );
+      }
 
       if (!response.ok) {
-        setAnalyzeError(data.error ?? "Dosya analiz edilemedi.");
+        setAnalyzeError(data.error ?? `Dosya analiz edilemedi (HTTP ${response.status}).`);
         return;
       }
 
-      setAnalysis(data);
+      setAnalysis(data as NonNullable<typeof analysis>);
     } catch (error) {
       console.error(error);
 
-      setAnalyzeError("ZIP dosyası analiz edilirken hata oluştu.");
+      setAnalyzeError(
+        error instanceof Error
+          ? error.message
+          : "ZIP dosyası analiz edilirken hata oluştu.",
+      );
     } finally {
       setAnalyzing(false);
     }
