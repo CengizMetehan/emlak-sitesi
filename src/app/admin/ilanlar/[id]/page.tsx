@@ -135,7 +135,8 @@ export default async function AdminIlanDetayPage({ params }: PageProps) {
                     src={displayCoverImage}
                     alt={property.title}
                     fill
-                    sizes="(max-width: 1280px) 100vw, 50vw"
+                    sizes="(max-width: 1280px) 100vw, 650px"
+                    quality={75}
                     className="object-cover"
                     priority
                   />

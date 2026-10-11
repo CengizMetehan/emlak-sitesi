@@ -187,11 +187,26 @@ export default function SahibindenImportPage() {
     } catch (error) {
       console.error(error);
 
-      setAnalyzeError(
-        error instanceof Error
-          ? error.message
-          : "ZIP dosyası analiz edilirken hata oluştu.",
-      );
+      let message = "ZIP dosyası analiz edilirken hata oluştu.";
+
+      if (error instanceof Error && error.message) {
+        message = error.message;
+      } else if (typeof error === "string" && error.trim()) {
+        message = error;
+      } else if (error && typeof error === "object" && "message" in error) {
+        const errorMessage = (error as { message?: unknown }).message;
+        if (typeof errorMessage === "string" && errorMessage.trim()) {
+          message = errorMessage;
+        }
+      } else if (error !== null && error !== undefined) {
+        try {
+          message = JSON.stringify(error) || String(error);
+        } catch {
+          message = String(error);
+        }
+      }
+
+      setAnalyzeError(message);
     } finally {
       setAnalyzing(false);
     }

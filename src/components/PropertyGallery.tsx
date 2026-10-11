@@ -364,8 +364,7 @@ export default function PropertyGallery({
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 90vw, 850px"
             loading={activeIndex === 0 ? "eager" : "lazy"}
             fetchPriority={activeIndex === 0 ? "high" : "auto"}
-            quality={82}
-            unoptimized={images[activeIndex]?.startsWith("http")}
+            quality={75}
             onLoad={() => {
               setLoadedImage(images[activeIndex]);
             }}
@@ -441,7 +440,6 @@ export default function PropertyGallery({
                   sizes="104px"
                   loading="lazy"
                   quality={55}
-                  unoptimized={image.startsWith("http")}
                   draggable={false}
                   className="h-[64px] w-[92px] select-none object-cover md:h-[70px] md:w-[104px]"
                 />

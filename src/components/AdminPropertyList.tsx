@@ -4,9 +4,9 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import FeaturedToggleButton from "@/components/FeaturedToggleButton";
-import type { Property } from "@/data/properties";
+import type { PropertySummary } from "@/data/properties";
 
-type AdminProperty = Property & {
+type AdminProperty = PropertySummary & {
   displayTitle: string;
   displayPriceText: string;
   displayCoverImage: string;
@@ -109,7 +109,9 @@ export default function AdminPropertyList({
                       src={property.displayCoverImage}
                       alt={property.displayTitle}
                       fill
-                      sizes="110px"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1279px) 25vw, 110px"
+                      quality={55}
+                      loading="lazy"
                       className="object-cover"
                     />
                   ) : (

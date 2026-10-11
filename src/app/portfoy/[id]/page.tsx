@@ -669,9 +669,9 @@ export default async function PropertyDetailPage({
                         src={featuredProperty.image}
                         alt={featuredProperty.title}
                         fill
-                        sizes="(max-width: 1024px) 42vw, 200px"
+                        sizes="(max-width: 640px) 40vw, (max-width: 1023px) 30vw, 14vw"
                         loading="lazy"
-                        quality={65}
+                        quality={55}
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
                     ) : (

@@ -61,7 +61,9 @@ export type PropertySummary = Pick<
   | "priceText"
   | "rooms"
   | "grossArea"
+  | "netArea"
   | "image"
+  | "featured"
 >;
 
 export { properties } from "./properties.generated";

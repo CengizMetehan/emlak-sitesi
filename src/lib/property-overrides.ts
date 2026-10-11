@@ -26,6 +26,11 @@ export type PropertyOverride = {
   updated_at: string;
 };
 
+export type PropertyOverrideSummary = Pick<
+  PropertyOverride,
+  "property_id" | "title" | "price_text" | "cover_image"
+>;
+
 let tableReady = false;
 
 async function ensurePropertyOverrideTable() {
@@ -167,6 +172,24 @@ export async function getAllPropertyOverrides(): Promise<PropertyOverride[]> {
   `);
 
   return result.rows.map(normalizeOverride);
+}
+
+export async function getPropertyOverrideSummaries(): Promise<
+  PropertyOverrideSummary[]
+> {
+  await ensurePropertyOverrideTable();
+
+  const result = await pool.query(`
+    SELECT property_id, title, price_text, cover_image
+    FROM property_override
+  `);
+
+  return result.rows.map((row) => ({
+    property_id: String(row.property_id),
+    title: row.title == null ? null : String(row.title),
+    price_text: row.price_text == null ? null : String(row.price_text),
+    cover_image: row.cover_image == null ? null : String(row.cover_image),
+  }));
 }
 
 export async function clearPropertyPriceOverride(propertyId: string) {

@@ -1272,7 +1272,6 @@ function HomeContent() {
                                 fill
                                 sizes="(max-width: 640px) 115px, (max-width: 1024px) 33vw, (max-width: 1280px) 33vw, 20vw"
                                 quality={65}
-                                unoptimized={coverImage.startsWith("https://")}
                                 loading="lazy"
                                 className="object-cover transition duration-500 group-hover:scale-105"
                                 onError={() => {

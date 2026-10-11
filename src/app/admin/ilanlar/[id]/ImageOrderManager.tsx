@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 type ImageOrderManagerProps = {
   images: string[];
@@ -205,9 +206,13 @@ export default function ImageOrderManager({
               : "border-white/10"
           }`}
         >
-          <img
+          <Image
             src={image}
             alt={`Galeri fotoğrafı ${index + 1}`}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, (max-width: 1536px) 30vw, 460px"
+            quality={55}
+            loading={index === 0 ? "eager" : "lazy"}
             draggable={false}
             className="h-full w-full object-cover"
           />

@@ -3,8 +3,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 
-import { getProperties } from "@/lib/properties-db";
-import { getPropertyOverride } from "@/lib/property-overrides";
+import { getPropertySummaries } from "@/lib/properties-db";
+import { getPropertyOverrideSummaries } from "@/lib/property-overrides";
 import AdminPropertyList from "@/components/AdminPropertyList";
 
 export const dynamic = "force-dynamic";
@@ -22,27 +22,28 @@ export default async function AdminIlanlarPage() {
    * Artık properties.generated.ts değil,
    * Neon PostgreSQL kullanılıyor.
    */
-  const properties = await getProperties();
+  const [properties, overrides] = await Promise.all([
+    getPropertySummaries(),
+    getPropertyOverrideSummaries(),
+  ]);
 
   /*
    * Override bilgilerini SERVER tarafında
    * uygulayıp Client Component'e hazır veri gönderiyoruz.
    */
-  const adminProperties = await Promise.all(
-    properties.map(async (property) => {
-      const override = await getPropertyOverride(property.id);
-
-      return {
-        ...property,
-
-        displayTitle: override?.title ?? property.title,
-
-        displayPriceText: override?.price_text ?? property.priceText,
-
-        displayCoverImage: override?.cover_image ?? property.image,
-      };
-    }),
+  const overrideByPropertyId = new Map(
+    overrides.map((override) => [override.property_id, override]),
   );
+  const adminProperties = properties.map((property) => {
+    const override = overrideByPropertyId.get(property.id);
+
+    return {
+      ...property,
+      displayTitle: override?.title ?? property.title,
+      displayPriceText: override?.price_text ?? property.priceText,
+      displayCoverImage: override?.cover_image ?? property.image,
+    };
+  });
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">

@@ -44,7 +44,9 @@ export async function getPropertySummaries(): Promise<PropertySummary[]> {
       price_text,
       rooms,
       gross_area,
-      image
+      net_area,
+      image,
+      featured
     FROM properties
     ORDER BY created_at DESC
   `);
@@ -62,7 +64,9 @@ export async function getPropertySummaries(): Promise<PropertySummary[]> {
     priceText: row.price_text,
     rooms: row.rooms ?? undefined,
     grossArea: row.gross_area ?? undefined,
+    netArea: row.net_area ?? undefined,
     image: getLocalPropertyImage(row.image),
+    featured: row.featured ?? false,
   }));
 }
 
@@ -85,7 +89,9 @@ export async function getFeaturedPropertySummaries(
         price_text,
         rooms,
         gross_area,
-        image
+        net_area,
+        image,
+        featured
       FROM properties
       WHERE featured = TRUE AND id <> $1
       ORDER BY created_at DESC
@@ -107,7 +113,9 @@ export async function getFeaturedPropertySummaries(
     priceText: row.price_text,
     rooms: row.rooms ?? undefined,
     grossArea: row.gross_area ?? undefined,
+    netArea: row.net_area ?? undefined,
     image: getLocalPropertyImage(row.image),
+    featured: row.featured ?? false,
   }));
 }
 
